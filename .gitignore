@@ -1,5 +1,5 @@
-tm-frontend/node_modules
-tm-frontend/dist
+frontend/node_modules
+frontend/dist
 .gitignore
 
 tm-backend/**/__pycache__
@@ -16,7 +16,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
+**/node_modules/
 dist
 dist-ssr
 *.local
