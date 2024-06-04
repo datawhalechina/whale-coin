@@ -1,4 +1,13 @@
-# Logs
+tm-frontend/node_modules
+tm-frontend/dist
+.gitignore
+
+tm-backend/**/__pycache__
+tm-backend/.venv
+tm-backend/alembic
+tm-backend/alembic.ini
+tm-backend/static
+
 logs
 *.log
 npm-debug.log*
@@ -22,3 +31,4 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
