@@ -56,6 +56,30 @@ const routes: Array<RouteRecordRaw> = [
           name: "All",
           component: () => import("../views/user/All.vue"),
         },
+        {
+          path: "/coin/apply",
+          // 命名
+          name: "Apply",
+          component: () => import("../views/coin/Apply.vue"),
+        },
+        {
+          path: "/coin/supervise",
+          // 命名
+          name: "Supervise",
+          component: () => import("../views/coin/Supervise.vue"),
+        },
+        {
+          path: "/coin/consume",
+          // 命名
+          name: "Consume",
+          component: () => import("../views/coin/Consume.vue"),
+        },
+        {
+          path: "/coin/bill",
+          // 命名
+          name: "Bill",
+          component: () => import("../views/coin/Bill.vue"),
+        },
     ]
   },
   

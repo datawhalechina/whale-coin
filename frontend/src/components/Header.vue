@@ -12,7 +12,8 @@ const handleSelect = (key: string, keyPath: string[]) => {
   <el-row>
     <el-col :span="9">
       <a href="/">
-        <img src="/logo.png" class="logo" alt="你好" />
+        <!-- <img src="/logo.png" class="logo" alt="你好" /> -->
+        <h3>鲸币</h3>
       </a>
     </el-col>
     <el-col :span="9">
