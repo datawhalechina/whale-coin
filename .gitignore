@@ -7,3 +7,4 @@ tm-backend/.venv
 tm-backend/alembic
 tm-backend/alembic.ini
 tm-backend/static
+frontend/node_modules
