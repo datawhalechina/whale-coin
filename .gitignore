@@ -8,5 +8,5 @@ tm-backend/alembic
 tm-backend/alembic.ini
 tm-backend/static
 frontend/node_modules
-**/__pycache__
+backend/**/__pycache__
 .idea
