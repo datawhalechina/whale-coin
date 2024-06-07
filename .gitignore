@@ -1,9 +1,32 @@
-tm-frontend/node_modules
-tm-frontend/dist
+node_modules
+dist
 .gitignore
+
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+.DS_Store
 
 tm-backend/**/__pycache__
 tm-backend/.venv
 tm-backend/alembic
 tm-backend/alembic.ini
 tm-backend/static
+
+# python
+__pycache__/
+**/__pycache__/
+*.pyc
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
