@@ -82,7 +82,7 @@ def get_all_issues_and_prs(username, repo_name, oauth_token=None):
     
     return issues, prs
 
-if __name__ == "__main__":
+def update_repo():
 
     username = "datawhalechina"
 
@@ -90,10 +90,8 @@ if __name__ == "__main__":
     # repos = get_all_repos(username)
     # save_info_to_json(repos, "all_repos.json")
 
+    repos =[{'name':'zishu'}]
 
-    # repos =[{'name':'joyrl-book'}]
-    repos =[{'name':'grape-book'}]
-    
     all_issues = []
     all_prs = []
 
@@ -102,49 +100,107 @@ if __name__ == "__main__":
         repo_name = repo['name']
         issues, prs = get_all_issues_and_prs(username, repo_name)
         issue_html = [issue['html_url']for issue in issues]
-        print(issue_html)
 
-        issues_closed = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='closed']
-        issues_open = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='open']
+        # issues_closed = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='closed']
+        # issues_open = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='open']
 
-        for index,issue in enumerate(issues_closed):
-            print(index)
-            print(type(issue))
-            print(issue['html_url'])
+        for issue in issues[-1:]:
+            print("html_url === ",issue['html_url'])
             state = issue['state']
             num = issue['number']
-            filename = f'{repo_name}_issue_{state}_{num}.json'
-            if index==0:
-                print(issue)
-                with open(filename, 'w', encoding='utf-8') as f:
-                    json.dump(issue, f, ensure_ascii=False, indent=4)
-        print('-------------------'*3)
-
-        # pr_closed = [pr for pr in prs if 'pull' in pr['html_url'] and pr['state']=='closed']
-        # pr_open = [pr for pr in prs if 'pull' in pr['html_url'] and pr['state']=='open']
-        # for item in [pr_closed,pr_open]:
-        #     for index,pr in enumerate(item):
-        #         print(index)
-        #         print(type(pr))
-        #         print(pr['html_url'])
-        #         state = pr['state']
-        #         num = pr['number']
-        #         filename = f'{repo_name}_pr_{state}_{num}.json'
-        #         if index==0:
-        #             print(pr)
-        #             with open(filename, 'w', encoding='utf-8') as f:
-        #                 json.dump(issue, f, ensure_ascii=False, indent=4)
+            print("1-------------", issue['number'], issue['state'], issue['title'], issue['comments_url'])
+            print("issue ===== ", issue.items())
+            for i, s in issue.items():
+                print("i---------",i,s)
+            # filename = f'{repo_name}_issue_{state}_{num}.json'
+            # if index==0:
+            #     with open(filename, 'w', encoding='utf-8') as f:
+            #         json.dump(issue, f, ensure_ascii=False, indent=4)
 
 
-    #获取所有仓库贡献者
-    # repos_info = get_all_repos_contributors(repos,username)
-    # print(repos_info)
+        # for index,issue in enumerate(issues_closed):
+        #     print("index === ",index)
+        #     print("issue-t === ",type(issue),issue.items)
+        #     print("html_url === ",issue['html_url'])
+        #     state = issue['state']
+        #     num = issue['number']
+        #     print("1-------------", state, num)
+        #     print("issue ===== ", issue.items())
+        #     filename = f'{repo_name}_issue_{state}_{num}.json'
+        #     if index==0:
+        #         with open(filename, 'w', encoding='utf-8') as f:
+        #             json.dump(issue, f, ensure_ascii=False, indent=4)
+        print('-------------------'*7)
 
-    # save_info_to_json(repos_info, "all_repos_contributors.json")
 
-    # 获取单个仓库贡献者
-    # repo_name = 'pythonrumen'
-    # contributors = get_one_repo_contributors(username, repo_name)
-    # print(contributors)
-    # save_info_to_json(contributors, f'{repo_name}_contributors.json')
+
+if __name__ == "__main__":
+    update_repo()
+
+
+# if __name__ == "__main__":
+#
+#     username = "datawhalechina"
+#
+#     #获取所有仓库信息
+#     # repos = get_all_repos(username)
+#     # save_info_to_json(repos, "all_repos.json")
+#
+#
+#     # repos =[{'name':'joyrl-book'}]
+#     repos =[{'name':'grape-book'}]
+#
+#     all_issues = []
+#     all_prs = []
+#
+#     # 获取每个仓库的所有issues和PRs
+#     for repo in repos:
+#         repo_name = repo['name']
+#         issues, prs = get_all_issues_and_prs(username, repo_name)
+#         issue_html = [issue['html_url']for issue in issues]
+#         print("issue_html = ", issue_html)
+#
+#         issues_closed = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='closed']
+#         issues_open = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='open']
+#
+#         for index,issue in enumerate(issues_closed):
+#             print("index === ",index)
+#             print("issue-t === ",type(issue),issue.items)
+#             print("html_url === ",issue['html_url'])
+#             state = issue['state']
+#             num = issue['number']
+#             print("issue ===== ", issue.items())
+#             filename = f'{repo_name}_issue_{state}_{num}.json'
+#             if index==0:
+#                 with open(filename, 'w', encoding='utf-8') as f:
+#                     json.dump(issue, f, ensure_ascii=False, indent=4)
+#         print('-------------------'*3)
+#
+#         # pr_closed = [pr for pr in prs if 'pull' in pr['html_url'] and pr['state']=='closed']
+#         # pr_open = [pr for pr in prs if 'pull' in pr['html_url'] and pr['state']=='open']
+#         # for item in [pr_closed,pr_open]:
+#         #     for index,pr in enumerate(item):
+#         #         print(index)
+#         #         print(type(pr))
+#         #         print(pr['html_url'])
+#         #         state = pr['state']
+#         #         num = pr['number']
+#         #         filename = f'{repo_name}_pr_{state}_{num}.json'
+#         #         if index==0:
+#         #             print(pr)
+#         #             with open(filename, 'w', encoding='utf-8') as f:
+#         #                 json.dump(issue, f, ensure_ascii=False, indent=4)
+#
+#
+#     #获取所有仓库贡献者
+#     # repos_info = get_all_repos_contributors(repos,username)
+#     # print(repos_info)
+#
+#     # save_info_to_json(repos_info, "all_repos_contributors.json")
+#
+#     # 获取单个仓库贡献者
+#     # repo_name = 'pythonrumen'
+#     # contributors = get_one_repo_contributors(username, repo_name)
+#     # print(contributors)
+#     # save_info_to_json(contributors, f'{repo_name}_contributors.json')
 
