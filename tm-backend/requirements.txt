@@ -8,4 +8,4 @@ sqlalchemy
 alembic
 psycopg[binary,pool]
 python-jose[cryptography]
-apscheduler[,pytz,tzlocal]
+apscheduler[pytz,tzlocal]
