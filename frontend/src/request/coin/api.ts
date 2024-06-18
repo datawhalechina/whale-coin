@@ -18,5 +18,8 @@ export const fetchConsumeAPI = (): Promise<any> =>
 export const handleConsumeAPI = (data: Coin.IHandleConsume): Promise<any> =>
     instance.post("/api/coin/handle_consume", data);
 
+export const addEventAPI = (data: Coin.IAddEvent): Promise<any> =>
+    instance.post("/api/coin/add_event", data);
+
 export const fetchBillAPI = (): Promise<any> =>
     instance.get("/api/coin/fetch_bill");

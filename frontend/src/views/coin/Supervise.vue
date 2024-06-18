@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import {fetchSuperviseAPI, handleSuperviseAPI} from '../../request/coin/api'
+import {fetchSuperviseAPI, handleSuperviseAPI, addEventAPI} from '../../request/coin/api'
 import { onMounted, ref, reactive } from 'vue'
 import { ElTable } from 'element-plus'
 document.title = "鲸币审批"
@@ -9,6 +9,16 @@ const doRegister = async() => {
     tableData.push(...res)
 }
 onMounted(doRegister)
+
+const dialogFormVisible = ref(false)
+const formLabelWidth = '70px'
+const diaglogwidth = '370px'
+
+const form = reactive({
+  name: '',
+  content: '',
+  coin:0
+})
 
 const currentRow = ref()
 const singleTableRef = ref<InstanceType<typeof ElTable>>()
@@ -27,6 +37,37 @@ interface Supervise {
 const handleCurrentChange = (val: Supervise | undefined) => {
   currentRow.value = val
 }
+
+const add = () => {
+    dialogFormVisible.value = true;
+}
+
+
+
+const submit = async() => {
+  let res = await addEventAPI({"user_id":2, "content":form.content, "amount":form.coin})
+  if (res.code == 200) {
+    let temp = {
+      id:res.coin_id,
+      user_name: form.name,
+      user_id:0,
+      content: form.content,
+      amount: form.coin,
+      balance:res.balance,
+      record_time:new Date()
+    }
+    tableData.splice(0, 0, temp)
+    dialogFormVisible.value = false
+    currentRow.value.balance = res.balance
+    currentRow.value.id = res.consume_id
+    form.name = ''
+    form.content = ''
+    form.coin = 0
+  }
+}
+
+
+
 
 const activate_user = async ()=> {
     // let msg = "确定要同意该鲸币申请-"+currentRow.value.repo+"吗？"
@@ -61,9 +102,10 @@ const delete_user = async ()=> {
 </script>
 
 <template>
-    <div v-if="currentRow">
-    <el-button type="primary" @click="activate_user">同意</el-button>
-    <el-button type="primary" @click="delete_user">拒绝</el-button>
+    <div>
+    <el-button type="primary" @click="add">新增</el-button>
+    <el-button v-if="currentRow" type="primary" @click="activate_user">同意</el-button>
+    <el-button v-if="currentRow" type="primary" @click="delete_user">拒绝</el-button>
     </div>
   <el-table 
   ref="singleTableRef"
@@ -81,6 +123,25 @@ const delete_user = async ()=> {
     <el-table-column prop="apply_status" label="申请状态" />
     <el-table-column prop="apply_time" label="申请时间" />
   </el-table>
+
+  <el-dialog v-model="dialogFormVisible" :width="diaglogwidth" :center="true" title="鲸币新增">
+    <el-form :model="form">
+      <el-form-item label="名字" :label-width="formLabelWidth">
+        <el-input v-model="form.name" autocomplete="off" />
+      </el-form-item>
+      <el-form-item label="内容" :label-width="formLabelWidth">
+        <el-input v-model="form.content" autocomplete="off"/>
+      </el-form-item>
+      <el-form-item label="鲸币" :label-width="formLabelWidth">
+        <el-input v-model="form.coin" autocomplete="off"/>
+      </el-form-item>
+    </el-form>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button type="primary" @click="submit">确定</el-button>
+      </span>
+    </template>
+  </el-dialog>
 </template>
 
 <style lang="scss" scoped>
