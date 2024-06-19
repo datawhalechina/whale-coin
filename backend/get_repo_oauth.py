@@ -85,40 +85,40 @@ if __name__ == "__main__":
 
     #获取所有仓库信息
     repos = get_repositories()
-    # save_info_to_json(repos, "./github_data/all_repos.json")
+    save_info_to_json(repos, "./github_data/all_repos.json")
 
     
     all_issues = []
     all_prs = []
 
     # 获取每个仓库的所有issues和PRs
-    # for repo in repos:
-    #     repo_owner = repo['owner']['login']
-    #     repo_name = repo['name']
-    #     print(f'repo_name {repo_name}')
-    #     issues, prs = get_all_issues_and_prs(repo_owner, repo_name)
-    #     issue_html = [issue['html_url']for issue in issues]
-    #     print(f'issue_html {issue_html}')
+    for repo in repos:
+        repo_owner = repo['owner']['login']
+        repo_name = repo['name']
+        print(f'repo_name {repo_name}')
+        issues, prs = get_all_issues_and_prs(repo_owner, repo_name)
+        issue_html = [issue['html_url']for issue in issues]
+        print(f'issue_html {issue_html}')
 
-    #     issues_closed = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='closed']
-    #     issues_open = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='open']
+        issues_closed = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='closed']
+        issues_open = [issue for issue in issues if 'issues' in issue['html_url'] and issue['state']=='open']
 
-    #     for item in [issues_closed,issues_open]:
-    #         if item:
-    #             state = item[0]['state']
-    #             filename = f'./github_data/{repo_name}_issue_{state}.json'
-    #             with open(filename, 'w', encoding='utf-8') as f:
-    #                 json.dump(item, f, ensure_ascii=False, indent=4)
+        for item in [issues_closed,issues_open]:
+            if item:
+                state = item[0]['state']
+                filename = f'./github_data/{repo_name}_issue_{state}.json'
+                with open(filename, 'w', encoding='utf-8') as f:
+                    json.dump(item, f, ensure_ascii=False, indent=4)
 
 
-    #     pr_closed = [pr for pr in prs if 'pull' in pr['html_url'] and pr['state']=='closed']
-    #     pr_open = [pr for pr in prs if 'pull' in pr['html_url'] and pr['state']=='open']
-    #     for item in [pr_closed,pr_open]:
-    #         if item:
-    #             state = item[0]['state']
-    #             filename = f'./github_data/{repo_name}_pr_{state}.json'
-    #             with open(filename, 'w', encoding='utf-8') as f:
-    #                 json.dump(item, f, ensure_ascii=False, indent=4)
+        pr_closed = [pr for pr in prs if 'pull' in pr['html_url'] and pr['state']=='closed']
+        pr_open = [pr for pr in prs if 'pull' in pr['html_url'] and pr['state']=='open']
+        for item in [pr_closed,pr_open]:
+            if item:
+                state = item[0]['state']
+                filename = f'./github_data/{repo_name}_pr_{state}.json'
+                with open(filename, 'w', encoding='utf-8') as f:
+                    json.dump(item, f, ensure_ascii=False, indent=4)
 
 
     # #获取所有仓库贡献者
