@@ -1,0 +1,2 @@
+alembic revision --autogenerate -m "coin database"
+alembic upgrade head
