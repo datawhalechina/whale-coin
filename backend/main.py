@@ -30,7 +30,7 @@ app.add_middleware(
 app.include_router(users.router)
 app.include_router(coin.coin)
 
-@app.get("/test")
+@app.get("/")
 def read_root():
     return {"Hello": "World"}
 

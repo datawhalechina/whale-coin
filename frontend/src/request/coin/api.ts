@@ -9,6 +9,9 @@ export const handleApplyAPI = (data: Coin.IHandleApply): Promise<any> =>
 export const fetchSuperviseAPI = (): Promise<any> =>
     instance.get("/api/coin/fetch_supervise");
 
+export const fetchAllSuperviseAPI = (): Promise<any> =>
+    instance.get("/api/coin/fetch_all_supervise");
+
 export const handleSuperviseAPI = (data: Coin.IHandleSupervise): Promise<any> =>
     instance.post("/api/coin/handle_supervise", data);
 
