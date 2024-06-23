@@ -24,4 +24,5 @@ class Order(Base):
     status=Column(VARCHAR(1))
     toal_price=Column(Float)
     address = Column(VARCHAR(1000))
+    phone =Column(Integer)
     create_time = Column(DateTime)
