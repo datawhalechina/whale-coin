@@ -26,3 +26,4 @@ class Order(Base):
     address = Column(VARCHAR(1000))
     phone =Column(Integer)
     create_time = Column(DateTime)
+    audit_id=Column(Integer)

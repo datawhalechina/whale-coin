@@ -45,7 +45,7 @@ async def add_item(item: Item,user: UserBase = Depends(check_jwt_token), db: Ses
 async def get_order(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     return db.query(Order).all()
 @item.post("/add_order")
-async def add_order(oder:Order,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+async def add_order(order:Order,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     new_order = order
     new_order.create_time=datetime.now()
     new_order.create_user=user.id
@@ -56,11 +56,15 @@ async def add_order(oder:Order,user: UserBase = Depends(check_jwt_token), db: Se
     except Exception as e:
         return {"code":500,"message":e}    
 @item.post("/auduit_order")
-async def audit_order(orderid:orderId,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+async def audit_order(orderid:int,status:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     order=db.query(Order).filter_by(id=orderid)
     try:
-        order.status=1
+        order.status=status
+        order.audit_id=user.id
         db.commit()
         return {"code": 200, "message":"OK"}
     except Exception as e:
-        return {"code":500,"message":e}   
+        return {"code":500,"message":e}
+@item.get("/get_audit_order")
+async def get_audit_order(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):   
+    order=db.query(Order).filter_by(status=1).all()
