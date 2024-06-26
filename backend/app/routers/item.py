@@ -20,12 +20,6 @@ item = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@coin.get("/fetch_apply")
-async def fetch_apply(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
-    apply_items = db.query(Apply).filter_by(user_id=user.id, apply_status=None).all()
-    all_apply = [{"id":row.id, "repo":row.repo, "role":row.role, "content":row.content, "record_time":row.record_time} for row in apply_items]
-    return all_apply
-
 @item.get("/fetch_item")
 async def fetch_item(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     return db.query(Item).all()
