@@ -42,10 +42,9 @@ def update_repo():
             db.commit()
 
 
-
 if __name__ == "__main__":
-    update_repo()
 
+    update_repo()
     scheduler = BackgroundScheduler()
     scheduler.add_job(update_repo, 'cron', hour=22, minute=0, second=0)
     scheduler.start()
