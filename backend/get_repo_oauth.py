@@ -45,6 +45,29 @@ def get_all_repos_contributors(repos):
     return repos_info
 
 
+def get_all_repos(username):
+    repos = []
+    url = f"https://api.github.com/users/{username}/repos?page=1"
+
+    while url:
+        response = requests.get(url, headers=headers)
+        if response.status_code == 200:
+            repos += response.json()
+            if 'link' in response.headers:
+                # 解析分页链接
+                links = response.headers['link'].split(', ')
+                next_link = [link for link in links if 'rel="next"' in link]
+                if next_link:
+                    url = next_link[0].split(';')[0].strip('<>')
+                else:
+                    url = None
+            else:
+                break
+        else:
+            return "Error: Unable to fetch repositories"
+
+    return repos
+
 def get_one_repo_contributors(repo_owner, repo_name):
 
     url = f"https://api.github.com/repos/{repo_owner}/{repo_name}/contributors"
@@ -85,7 +108,7 @@ if __name__ == "__main__":
 
     #获取所有仓库信息
     repos = get_repositories()
-    save_info_to_json(repos, "./github_data/all_repos.json")
+    # save_info_to_json(repos, "./github_data/all_repos.json")
 
     
     all_issues = []
@@ -125,7 +148,7 @@ if __name__ == "__main__":
     repos_info = get_all_repos_contributors(repos)
     print(repos_info)
 
-    save_info_to_json(repos_info, "./github_data/all_repos_contributors.json")
+    # save_info_to_json(repos_info, "./github_data/all_repos_contributors.json")
 
     # 获取单个仓库贡献者
     # repo_name = 'Hackathon'

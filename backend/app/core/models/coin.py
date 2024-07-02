@@ -17,6 +17,10 @@ class Apply(Base):
     notes = Column(VARCHAR(500))
     confirm_time = Column(DateTime)
     coin_amount = Column(Float, default=0.0)
+    repo_owner_name = Column(VARCHAR(100))
+    user_name = Column(VARCHAR(100))
+    pid = Column(Integer)
+    title = Column(VARCHAR(200))
 
 class Consume(Base):
     __tablename__ = 'consume'
