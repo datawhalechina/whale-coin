@@ -24,28 +24,49 @@ item = APIRouter(
 async def fetch_item(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     return db.query(Item).all()
 
+item.get("/get_item_detal")
+async def get_item_detal(itemid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+    item=db.query(Item).filter_by(id=itemid).first()
+
 @item.post("/add_item")
 async def add_item(item: Item=Form(),files: list[UploadFile]=File(...),user: UserBase = Depends(check_jwt_token),db: Session = Depends(get_db)):
     uploaded_files_info = []
+
+    new_item = item
+    new_item.create_time=datetime.now()
+    new_item.create_user=user.id
     for file,index in files:
         # 保存文件到本地目录
-        new_file_name=index+file.filename.split('.')[-1]
+        new_file_name=new_item.name+index+'.'+file.filename.split('.')[-1]
         file_path = f"../static/img/{new_file_name}"
         with open(file_path, "wb") as buffer:
             content = await file.read()
             buffer.write(content)
         # 记录已上传文件的基本信息
-        uploaded_files_info.append({"filename": file.new_file_name, "size": len(content)})
-    new_item = item
-    new_item.create_time=datetime.now()
-    new_item.create_user=user.id
-    new_item.img_path=json.dumps(uploaded_files_info)
+        uploaded_files_info.append(new_file_name)
+        new_item.img_path=uploaded_files_info
     try:
+        
         db.add(new_item)
         db.commit()
         return {"code": 200, "message":"OK"}
     except Exception as e:
         return {"code":500,"message":e}
+@item.post("/delete_item") 
+async def delete_item(itemid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+    item=db.query(Item).filter_by(id=itemid).first()
+    imgs=item.img_path.split(',')
+    for img in imgs:
+        img_path=f"../static/img/{img}"
+        if os.path.exists(img_path):
+            os.remove(img_path)
+    try:
+        db.delete(item)
+        db.commit()
+        return {"code": 200, "message":"OK"}
+    except Exception as e:
+        return{"code":500,"message":e}   
+
 @item.get("/get_order")
 async def get_order(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     return db.query(Order).all()
@@ -61,7 +82,7 @@ async def add_order(order:Order=Form(...),user: UserBase = Depends(check_jwt_tok
     except Exception as e:
         return {"code":500,"message":e}    
 @item.post("/auduit_order")
-async def audit_order(orderid:int=Form(),status:int=Form(),user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+async def audit_order(orderid:int=Form(),status:str=Form(),user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     order=db.query(Order).filter_by(id=orderid)
     try:
         order.status=status
@@ -71,5 +92,29 @@ async def audit_order(orderid:int=Form(),status:int=Form(),user: UserBase = Depe
     except Exception as e:
         return {"code":500,"message":e}
 @item.get("/get_audit_order")
-async def get_audit_order(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):   
-    order=db.query(Order).filter_by(status=1).all()
+async def get_audit_order(statusId:str,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):   
+    order=db.query(Order).filter_by(status=statusId).all()
+
+@item.get("/get_order_detal")
+async def get_order_detal(orderid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+    order=db.query(Order).filter_by(id=orderid).first()
+
+@item.get("/get_user_order")
+async def get_user_order(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+    order=db.query(Order).filter_by(user_id=user.id).all()
+
+@item.get("/get_user_order_detal")
+async def get_user_order_detal(orderid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+    order=db.query(Order).filter_by(id=orderid).first()
+    return order    
+
+@item.post('/delete_order')
+async def delete_order(orderid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+    order=db.query(Order).filter_by(id=orderid).first()
+    try:
+        db.delete(order)
+        db.commit()
+        return {"code": 200, "message":"OK"}
+    except Exception as e:
+        return {"code":500,"message":e}
+

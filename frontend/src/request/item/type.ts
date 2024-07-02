@@ -5,21 +5,21 @@ export interface IAddItem {
     prince:number
 }
 
-export interface IHandleSupervise {
-    action:string
-    notes:string
-    id:number
-    amount:number
+export interface IaddOrder {
+    itemid:number
+    quantity:number
+    order_type:string
+    status:string
+    toal_price:number
+    address:string
+    phone:string
 }
 
-export interface IHandleConsume {
-    user_id: number
-    content: string
-    amount:number
+export interface IAuduitOrder {
+    orderid: number
+    status: string
 }
 
-export interface IAddEvent {
-    user_id: number
-    content: string
-    amount:number
+export interface IGetAudtOrder {
+    statusId:string
 }

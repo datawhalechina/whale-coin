@@ -1,28 +1,19 @@
 import instance from "../base";
-import  * as Coin from "./type";
-export const fetchApplyAPI = (): Promise<any> =>
-    instance.get("/api/coin/fetch_apply");
+import  * as Item from "./type";
+export const fetchItemAPI = (): Promise<any> =>
+    instance.get("/api/item/fetch_item");
 
-export const handleApplyAPI = (data: Coin.IHandleApply): Promise<any> =>
-    instance.post("/api/coin/handle_apply", data);
+export const addItemAPI = (data: Item.IAddItem): Promise<any> =>
+    instance.post("/api/item/add_item", data);
 
-export const fetchSuperviseAPI = (): Promise<any> =>
-    instance.get("/api/coin/fetch_supervise");
+export const getOrderAPI = (): Promise<any> =>
+    instance.get("/api/item/get_order");
 
-export const fetchAllSuperviseAPI = (): Promise<any> =>
-    instance.get("/api/coin/fetch_all_supervise");
+export const addOrderAPI = (data: Item.IaddOrder): Promise<any> =>
+    instance.post("/api/item/handle_supervise", data);
 
-export const handleSuperviseAPI = (data: Coin.IHandleSupervise): Promise<any> =>
-    instance.post("/api/coin/handle_supervise", data);
+export const auduitOrderAPI = (data: Item.IAuduitOrder): Promise<any> =>
+    instance.post("/api/item/auduit_order", data);
 
-export const fetchConsumeAPI = (): Promise<any> =>
-    instance.get("/api/coin/fetch_consume");
-
-export const handleConsumeAPI = (data: Coin.IHandleConsume): Promise<any> =>
-    instance.post("/api/coin/handle_consume", data);
-
-export const addEventAPI = (data: Coin.IAddEvent): Promise<any> =>
-    instance.post("/api/coin/add_event", data);
-
-export const fetchBillAPI = (): Promise<any> =>
-    instance.get("/api/coin/fetch_bill");
+export const getAuditOrderAPI = (data: Item.IGetAudtOrder): Promise<any> =>
+    instance.get("/api/item/get_audit_order");
