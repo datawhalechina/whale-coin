@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Form, Depends, HTTPException, status, Request
+from fastapi import APIRouter, Form, Depends, HTTPException, status, Request,UploadFile,File
 from datetime import datetime, timedelta
 from app.dependencies import check_jwt_token, get_db
 from app.config import settings
@@ -25,10 +25,21 @@ async def fetch_item(user: UserBase = Depends(check_jwt_token), db: Session = De
     return db.query(Item).all()
 
 @item.post("/add_item")
-async def add_item(item: Item,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+async def add_item(item: Item=Form(),files: list[UploadFile]=File(...),user: UserBase = Depends(check_jwt_token),db: Session = Depends(get_db)):
+    uploaded_files_info = []
+    for file,index in files:
+        # 保存文件到本地目录
+        new_file_name=index+file.filename.split('.')[-1]
+        file_path = f"../static/img/{new_file_name}"
+        with open(file_path, "wb") as buffer:
+            content = await file.read()
+            buffer.write(content)
+        # 记录已上传文件的基本信息
+        uploaded_files_info.append({"filename": file.new_file_name, "size": len(content)})
     new_item = item
     new_item.create_time=datetime.now()
     new_item.create_user=user.id
+    new_item.img_path=json.dumps(uploaded_files_info)
     try:
         db.add(new_item)
         db.commit()
@@ -39,7 +50,7 @@ async def add_item(item: Item,user: UserBase = Depends(check_jwt_token), db: Ses
 async def get_order(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     return db.query(Order).all()
 @item.post("/add_order")
-async def add_order(order:Order,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+async def add_order(order:Order=Form(...),user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     new_order = order
     new_order.create_time=datetime.now()
     new_order.create_user=user.id
@@ -50,7 +61,7 @@ async def add_order(order:Order,user: UserBase = Depends(check_jwt_token), db: S
     except Exception as e:
         return {"code":500,"message":e}    
 @item.post("/auduit_order")
-async def audit_order(orderid:int,status:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+async def audit_order(orderid:int=Form(),status:int=Form(),user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     order=db.query(Order).filter_by(id=orderid)
     try:
         order.status=status
