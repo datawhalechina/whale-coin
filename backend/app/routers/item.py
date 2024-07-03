@@ -20,11 +20,11 @@ item = APIRouter(
     responses={404: {"description": "Not found"}},
 )
 
-@item.get("/fetch_item")
+@item.get("/get_item")
 async def fetch_item(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     return db.query(Item).all()
 
-item.get("/get_item_detal")
+item.post("/get_item_detal")
 async def get_item_detal(itemid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     item=db.query(Item).filter_by(id=itemid).first()
 
@@ -91,22 +91,17 @@ async def audit_order(orderid:int=Form(),status:str=Form(),user: UserBase = Depe
         return {"code": 200, "message":"OK"}
     except Exception as e:
         return {"code":500,"message":e}
-@item.get("/get_audit_order")
+@item.post("/get_audit_order")
 async def get_audit_order(statusId:str,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):   
     order=db.query(Order).filter_by(status=statusId).all()
 
-@item.get("/get_order_detal")
+@item.post("/get_order_detal")
 async def get_order_detal(orderid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     order=db.query(Order).filter_by(id=orderid).first()
 
 @item.get("/get_user_order")
 async def get_user_order(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     order=db.query(Order).filter_by(user_id=user.id).all()
-
-@item.get("/get_user_order_detal")
-async def get_user_order_detal(orderid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
-    order=db.query(Order).filter_by(id=orderid).first()
-    return order    
 
 @item.post('/delete_order')
 async def delete_order(orderid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
@@ -117,4 +112,5 @@ async def delete_order(orderid:int,user: UserBase = Depends(check_jwt_token), db
         return {"code": 200, "message":"OK"}
     except Exception as e:
         return {"code":500,"message":e}
+
 
