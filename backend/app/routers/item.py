@@ -112,5 +112,3 @@ async def delete_order(orderid:int,user: UserBase = Depends(check_jwt_token), db
         return {"code": 200, "message":"OK"}
     except Exception as e:
         return {"code":500,"message":e}
-
-

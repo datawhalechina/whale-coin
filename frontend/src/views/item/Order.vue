@@ -93,7 +93,7 @@
   </template>
   
   <script lang="ts">
-  import { defineComponent, reactive, ref } from "vue";
+  import { defineComponent, reactive, ref,onMounted } from "vue";
   import {
     getOrderAPI,
     getOrderDetalAPI,
