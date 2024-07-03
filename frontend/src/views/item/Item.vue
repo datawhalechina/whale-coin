@@ -67,7 +67,7 @@
     <el-dialog v-model="detailModalVisible" title="Item 详情">
       <el-form :model="detailItem" label-width="80px">
         <el-form-item label="名称">
-          <el-input v-model="detailItem.name" disabled />
+          <el-input v-model="detailItem.name.value" disabled />
         </el-form-item>
         <el-form-item label="描述">
           <el-input v-model="detailItem.describe" disabled />
@@ -122,7 +122,7 @@ export default defineComponent({
   setup() {
     // 初始化数据
     const fileList = ref<UploadUserFile[]>([]);
-    let files = ref<File[]>([]);
+    const files = ref<File[]>([]);
     const itemList = reactive<Item[]>([]);
     const addItemModalVisible = ref(false);
     const detailModalVisible = ref(false);
@@ -158,8 +158,9 @@ export default defineComponent({
       }
     };
 
-    const handleRemove: UploadProps["onRemove"] = (uploadFile, uploadFiles) => {
-      console.log(uploadFiles.raw);
+    const handleRemove: UploadProps["onRemove"] = (uploadFile) => {
+      files.value=files.value.filter(file=>file.uid!=uploadFile.uid)
+      console.log(files);
     };
 
     const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
@@ -172,9 +173,9 @@ export default defineComponent({
       addItemModalVisible.value = true;
     };
 
-    const addFile:UploadProps['onChange']= (uploadFile)=>{
+    const addFile= (uploadFile)=>{
       files.value.push(uploadFile.file)
-      console.log(uploadFile)
+      console.log(uploadFile,files.value)
     }
     // 提交添加 Item
     const submitAddItem = async () => {
