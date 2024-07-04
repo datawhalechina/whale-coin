@@ -6,8 +6,7 @@ from jose import jwt
 from typing import Optional
 from app.core.schemas.users import UserBase
 from sqlalchemy.orm import Session
-from app.core.models.coin import Base, Apply, Consume, Bill
-from app.core.models.users import Users
+from app.core.models.coin import Base
 from app.core.models.item import Item,Order
 from app.database import engine
 import json
@@ -26,13 +25,18 @@ async def fetch_item(user: UserBase = Depends(check_jwt_token), db: Session = De
 
 item.post("/get_item_detal")
 async def get_item_detal(itemid:int,user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
-    item=db.query(Item).filter_by(id=itemid).first()
+    return db.query(Item).filter_by(id=itemid).first()
 
 @item.post("/add_item")
-async def add_item(item: Item=Form(),files: list[UploadFile]=File(...),user: UserBase = Depends(check_jwt_token),db: Session = Depends(get_db)):
+async def add_item(name:str=Form(...),describe:str=Form(...),stock:int=Form(...),prince:float=Form(...),files: list[UploadFile]=File(...),user: UserBase = Depends(check_jwt_token),db: Session = Depends(get_db)):
     uploaded_files_info = []
 
-    new_item = item
+    new_item = Item(
+        name=name,
+        describe=describe,
+        stock=stock,
+        prince=prince,
+    )
     new_item.create_time=datetime.now()
     new_item.create_user=user.id
     for file,index in files:
@@ -71,10 +75,18 @@ async def delete_item(itemid:int,user: UserBase = Depends(check_jwt_token), db: 
 async def get_order(user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
     return db.query(Order).all()
 @item.post("/add_order")
-async def add_order(order:Order=Form(...),user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
-    new_order = order
-    new_order.create_time=datetime.now()
-    new_order.create_user=user.id
+async def add_order(itemid:int=Form(...),quantity:int=Form(...),order_type:str=Form(...),status:str=Form(...),toal_price:float=Form(...),address:str=Form(...),phone:str=Form(...),user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)):
+    new_order = Order(
+        item_id=itemid,
+        quantity=quantity,
+        order_type=order_type,
+        status=status,
+        toal_price=toal_price,
+        address=address,
+        phone=phone,
+        create_time=datetime.now(),
+        user_id=user.id,
+    )
     try:
         db.add(new_order)
         db.commit()

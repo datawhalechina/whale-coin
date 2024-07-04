@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, Float, VARCHAR, DateTime, Boolean
+from sqlalchemy import Column, Integer, Float, VARCHAR, DateTime
 from app.database import Base
 
 class Item(Base):

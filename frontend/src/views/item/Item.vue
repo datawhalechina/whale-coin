@@ -20,8 +20,8 @@
     </el-table>
 
     <!-- 添加 Item 模态框 -->
-    <el-dialog v-model="addItemModalVisible" title="添加 Item">
-      <el-form ref="addItemForm" :model="addItemForm" label-width="80px">
+    <el-dialog v-model="addItemModalVisible" title="添加商品">
+      <el-form ref="addItemForm" v-model="addItemForm" label-width="80px">
         <el-form-item label="名称">
           <el-input v-model="addItemForm.name" />
         </el-form-item>
@@ -64,10 +64,10 @@
     </el-dialog>
 
     <!-- 详情 Item 模态框 -->
-    <el-dialog v-model="detailModalVisible" title="Item 详情">
+    <el-dialog v-model="detailModalVisible" title="商品详情">
       <el-form :model="detailItem" label-width="80px">
         <el-form-item label="名称">
-          <el-input v-model="detailItem.name.value" disabled />
+          <el-input v-model="detailItem.name" disabled />
         </el-form-item>
         <el-form-item label="描述">
           <el-input v-model="detailItem.describe" disabled />
@@ -103,18 +103,18 @@ import {
   addItemAPI,
   deleteItemAPI,
 } from "../../request/item/api";
-import { ElButton, ElTable, ElForm, ElDialog, ElMessage } from "element-plus";
+import { ElButton, ElTable, ElForm, ElDialog} from "element-plus";
 import type { UploadProps, UploadUserFile } from "element-plus";
 
 interface Item {
-  id: number;
+  id?: number;
   name: string;
   describe: string;
   stock: number;
-  create_time: Date;
+  create_time?: Date;
   prince: number;
-  create_user: number;
-  img_path: string;
+  create_user?: number;
+  img_path?: string;
 }
 
 export default defineComponent({
@@ -129,23 +129,17 @@ export default defineComponent({
     const dialogImageUrl = ref("");
     const dialogImgVisible = ref(false);
     const addItemForm = reactive<Item>({
-      id: 0,
       name: "",
       describe: "",
       stock: 0,
-      create_time: new Date(),
       prince: 0,
-      create_user: 0,
       img_path: "",
     });
     const detailItem = reactive<Item>({
-      id: 0,
       name: "",
       describe: "",
       stock: 0,
-      create_time: new Date(),
       prince: 0,
-      create_user: 0,
       img_path: "",
     });
     // 获取 Item 列表数据
@@ -159,7 +153,7 @@ export default defineComponent({
     };
 
     const handleRemove: UploadProps["onRemove"] = (uploadFile) => {
-      files.value=files.value.filter(file=>file.uid!=uploadFile.uid)
+      files.value=files.value.filter(file=>file.name!=uploadFile.name)
       console.log(files);
     };
 
