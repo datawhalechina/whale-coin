@@ -14,11 +14,11 @@ dist
 
 .DS_Store
 
-tm-backend/**/__pycache__
-tm-backend/.venv
-tm-backend/alembic
-tm-backend/alembic.ini
-tm-backend/static
+backend/**/__pycache__
+backend/.venv
+backend/alembic
+backend/alembic.ini
+backend/static
 
 # python
 __pycache__/
@@ -30,3 +30,4 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+.env.production

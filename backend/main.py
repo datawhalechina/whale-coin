@@ -5,8 +5,10 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.routers import users
 from app.routers import coin
+from app.routers import item
 
 from app.config import settings
+from app.database import engine
 
 app = FastAPI()
 app.mount("/api/static", StaticFiles(directory="static"), name="static")
@@ -29,10 +31,15 @@ app.add_middleware(
 
 app.include_router(users.router)
 app.include_router(coin.coin)
+app.include_router(item.item)
 
 @app.get("/")
 def read_root():
     return {"Hello": "World"}
+
+users.Base.metadata.create_all(bind=engine)
+coin.Base.metadata.create_all(bind=engine)
+item.Base.metadata.create_all(bind=engine)
 
 if __name__ == '__main__':
     uvicorn.run(app, host=settings.HOST, port=settings.PORT)
