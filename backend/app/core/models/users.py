@@ -29,3 +29,14 @@ class Register(Base):
     phone = Column(VARCHAR(80))
     notes = Column(VARCHAR(500))
     register_time = Column(DateTime)
+
+
+class GithubRepos(Base):
+    __tablename__ = 'github_repos'
+
+    id = Column(Integer, primary_key=True, autoincrement=True)
+    username = Column(VARCHAR(200), nullable=False)
+    repo_name = Column(VARCHAR(200), nullable=False)
+    contributors = Column(VARCHAR(200), nullable=False)
+    create_time = Column(DateTime)
+    update_time = Column(DateTime)
