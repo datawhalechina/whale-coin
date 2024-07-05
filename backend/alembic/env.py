@@ -14,19 +14,17 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# add your model's MetaData object here
+# Import your models' MetaData object here
 # for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
 from app.database import Base
-from app.core.models import users, coin
+from app.core.models import users, coin, item
+from app.config import settings  # 导入配置
+
+# Dynamically set the SQLAlchemy URL from the settings
+config.set_main_option('sqlalchemy.url', settings.SQLALCHEMY_DATABASE_URL)
+
+# 设置目标元数据，用于自动生成迁移脚本
 target_metadata = Base.metadata
-
-# other values from the config, defined by the needs of env.py,
-# can be acquired:
-# my_important_option = config.get_main_option("my_important_option")
-# ... etc.
-
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
@@ -60,7 +58,7 @@ def run_migrations_online() -> None:
 
     """
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        config.get_section(config.config_ini_section),
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )

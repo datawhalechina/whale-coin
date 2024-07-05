@@ -9,6 +9,9 @@ export const handleApplyAPI = (data: Coin.IHandleApply): Promise<any> =>
 export const fetchSuperviseAPI = (): Promise<any> =>
     instance.get("/api/coin/fetch_supervise");
 
+export const fetchAllSuperviseAPI = (): Promise<any> =>
+    instance.get("/api/coin/fetch_all_supervise");
+
 export const handleSuperviseAPI = (data: Coin.IHandleSupervise): Promise<any> =>
     instance.post("/api/coin/handle_supervise", data);
 
@@ -17,6 +20,9 @@ export const fetchConsumeAPI = (): Promise<any> =>
 
 export const handleConsumeAPI = (data: Coin.IHandleConsume): Promise<any> =>
     instance.post("/api/coin/handle_consume", data);
+
+export const addEventAPI = (data: Coin.IAddEvent): Promise<any> =>
+    instance.post("/api/coin/add_event", data);
 
 export const fetchBillAPI = (): Promise<any> =>
     instance.get("/api/coin/fetch_bill");

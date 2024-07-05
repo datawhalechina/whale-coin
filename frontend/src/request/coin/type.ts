@@ -15,3 +15,9 @@ export interface IHandleConsume {
     content: string
     amount:number
 }
+
+export interface IAddEvent {
+    user_id: number
+    content: string
+    amount:number
+}

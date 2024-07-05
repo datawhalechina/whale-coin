@@ -80,6 +80,18 @@ const routes: Array<RouteRecordRaw> = [
           name: "Bill",
           component: () => import("../views/coin/Bill.vue"),
         },
+        {
+          path: "/item/item",
+          // 命名
+          name: "Item",
+          component: () => import("../views/item/Item.vue"),
+        },
+        {
+          path: "/item/order",
+          // 命名
+          name: "Order",
+          component: () => import("../views/item/Order.vue"),
+        },
     ]
   },
   
