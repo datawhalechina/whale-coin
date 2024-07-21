@@ -16,25 +16,25 @@ def update_repo():
     # 获取所有仓库信息
     repos = get_all_repos(username)
     # 获取每个仓库的所有issues和PRs
-    for repo in repos:
-
-        repo_name = repo['name']
-        issues, prs = get_all_issues_and_prs(username, repo_name)
-        for issue in issues:
-            if issue['state'] == 'closed':
-                user = db.query(Apply).filter(Apply.content == issue['html_url']).first()
-                if not user:
-                    repo_apply = Apply(
-                        repo=repo['name'],
-                        repo_owner_name=username,
-                        user_name=issue['user']['login'],
-                        pid=issue['number'],
-                        title=issue['title'],
-                        content=issue['html_url'],
-                        record_time=datetime.strptime(issue['created_at'][:-1], '%Y-%m-%dT%H:%M:%S')
-                    )
-                    db.add(repo_apply)
-            db.commit()
+    if repos != "Error: Unable to fetch repositories":
+        for repo in repos:
+            if repo['name']:
+                issues, prs = get_all_issues_and_prs(username, repo['name'])
+                for issue in issues:
+                    if issue['state'] == 'closed':
+                        user = db.query(Apply).filter(Apply.content == issue['html_url']).first()
+                        if not user:
+                            repo_apply = Apply(
+                                repo=repo['name'],
+                                repo_owner_name=username,
+                                user_name=issue['user']['login'],
+                                pid=issue['number'],
+                                title=issue['title'],
+                                content=issue['html_url'],
+                                record_time=datetime.strptime(issue['created_at'][:-1], '%Y-%m-%dT%H:%M:%S')
+                            )
+                            db.add(repo_apply)
+                    db.commit()
 
 
 if __name__ == "__main__":
