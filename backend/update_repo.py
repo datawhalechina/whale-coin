@@ -5,7 +5,6 @@ from app.core.models.coin import Apply
 from datetime import datetime
 from get_repo_oauth import get_all_repos, get_all_issues_and_prs
 from apscheduler.schedulers.background import BackgroundScheduler
-import datetime
 
 
 def update_repo():
@@ -16,15 +15,11 @@ def update_repo():
 
     # 获取所有仓库信息
     repos = get_all_repos(username)
-
     # 获取每个仓库的所有issues和PRs
     for repo in repos:
 
         repo_name = repo['name']
-        if repo['name'] != 'zishu':
-            continue
         issues, prs = get_all_issues_and_prs(username, repo_name)
-
         for issue in issues:
             if issue['state'] == 'closed':
                 user = db.query(Apply).filter(Apply.content == issue['html_url']).first()
