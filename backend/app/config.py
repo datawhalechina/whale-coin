@@ -10,6 +10,10 @@ class Settings(BaseSettings):
     PORT: int
     SQLALCHEMY_DATABASE_URL: str
 
+    UPDATAREPO_STARTTIMEHOUR: int
+    UPDATAREPO_STARTTIMEMINUTE: int
+    UPDATAREPO_STARTTIMESECOND: int
+
     # 动态获取环境变量 ENV_FILE，默认为 .env
     # 标记 env_file 为 ClassVar，指定为类属性
     env_file: ClassVar[str] = os.getenv("ENV_FILE", ".env")

@@ -21,6 +21,7 @@ class Apply(Base):
     user_name = Column(VARCHAR(100))
     pid = Column(Integer)
     title = Column(VARCHAR(200))
+    state = Column(VARCHAR(20))
 
 class Consume(Base):
     __tablename__ = 'consume'

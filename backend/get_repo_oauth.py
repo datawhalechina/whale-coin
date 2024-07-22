@@ -64,6 +64,7 @@ def get_all_repos(username):
             else:
                 break
         else:
+            print(response)
             return "Error: Unable to fetch repositories"
 
     return repos
