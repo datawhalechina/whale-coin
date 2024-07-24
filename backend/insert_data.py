@@ -14,8 +14,8 @@ DATABASE_URL = os.getenv('SQLALCHEMY_DATABASE_URL', 'mysql+pymysql://root:yourpa
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
-# 初始化密码加密上下文，使用 sha256_crypt 而不是 bcrypt
-pwd_context = CryptContext(schemes=["sha256_crypt"], deprecated="auto")
+# 初始化密码加密上下文，bcrypt
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 # 哈希密码
 hashed_password = pwd_context.hash('zishu')
