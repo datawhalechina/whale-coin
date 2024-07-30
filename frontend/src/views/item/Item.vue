@@ -34,9 +34,9 @@
         <el-form-item label="价格">
           <el-input-number v-model="addItemForm.prince" />
         </el-form-item>
-        <el-form-item label="图片">
+        <!-- <el-form-item label="图片">
           <el-upload
-            v-model:file-list="fileList"
+            v-model="fileList"
             action="#"
             auto-upload:false
             list-type="picture-card"
@@ -46,7 +46,7 @@
           >
             <el-icon><Plus /></el-icon>
           </el-upload>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
           <el-button type="primary" @click="submitAddItem">提交</el-button>
           <el-button @click="addItemModalVisible = false">取消</el-button>
@@ -84,9 +84,9 @@
         <el-form-item label="创建用户">
           <el-input v-model="detailItem.create_user" disabled />
         </el-form-item>
-        <el-form-item label="图片路径">
+        <!-- <el-form-item label="图片路径">
           <el-input v-model="detailItem.img_path" disabled />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item>
           <el-button @click="detailModalVisible = false">关闭</el-button>
         </el-form-item>
@@ -96,18 +96,18 @@
 </template>
   
   <script lang="ts">
-import { defineComponent, reactive, ref, onMounted } from "vue";
+import { defineComponent, ref, onMounted } from "vue";
 import {
   getItemAPI,
   getItemDetal,
   addItemAPI,
   deleteItemAPI,
 } from "../../request/item/api";
-import { ElButton, ElTable, ElForm, ElDialog} from "element-plus";
+import { ElButton, ElTable, ElForm, ElDialog, UploadFile } from "element-plus";
 import type { UploadProps, UploadUserFile } from "element-plus";
 
 interface Item {
-  id?: number;
+  id: number;
   name: string;
   describe: string;
   stock: number;
@@ -123,19 +123,21 @@ export default defineComponent({
     // 初始化数据
     const fileList = ref<UploadUserFile[]>([]);
     const files = ref<File[]>([]);
-    const itemList = reactive<Item[]>([]);
+    const itemList = ref<Item[]>([]);
     const addItemModalVisible = ref(false);
     const detailModalVisible = ref(false);
     const dialogImageUrl = ref("");
     const dialogImgVisible = ref(false);
-    const addItemForm = reactive<Item>({
+    const addItemForm = ref<Item>({
+      id: 0,
       name: "",
       describe: "",
       stock: 0,
       prince: 0,
       img_path: "",
     });
-    const detailItem = reactive<Item>({
+    const detailItem = ref<Item>({
+      id: 0,
       name: "",
       describe: "",
       stock: 0,
@@ -146,18 +148,22 @@ export default defineComponent({
     const getItems = async () => {
       try {
         const response = await getItemAPI();
-        itemList.values = response.data;
+        itemList.value = response.data;
       } catch (error) {
         console.error("获取 Item 列表失败:", error);
       }
     };
 
-    const handleRemove: UploadProps["onRemove"] = (uploadFile) => {
-      files.value=files.value.filter(file=>file.name!=uploadFile.name)
+    const handleRemove: UploadProps["onRemove"] = (uploadFile: UploadFile) => {
+      files.value = files.value.filter(
+        (file: File) => file.name != uploadFile.name
+      );
       console.log(files);
     };
 
-    const handlePictureCardPreview: UploadProps["onPreview"] = (uploadFile) => {
+    const handlePictureCardPreview: UploadProps["onPreview"] = (
+      uploadFile: UploadFile
+    ) => {
       console.log(uploadFile);
       dialogImageUrl.value = uploadFile.url!;
       dialogImgVisible.value = true;
@@ -167,16 +173,19 @@ export default defineComponent({
       addItemModalVisible.value = true;
     };
 
-    const addFile= (uploadFile)=>{
-      files.value.push(uploadFile.file)
-      console.log(uploadFile,files.value)
-    }
+    const addFile = (uploadFile: UploadFile) => {
+      // files.value.push(uploadFile.file);
+      console.log(uploadFile, files.value);
+    };
     // 提交添加 Item
     const submitAddItem = async () => {
       try {
         const response = await addItemAPI({
-          item: addItemForm,
-          files: files, // 处理文件上传的部分
+          name: "name",
+          describe: "describe",
+          stock: 0,
+          prince: 0,
+          // files: files, // 处理文件上传的部分
         });
         if (response.status === 200) {
           addItemModalVisible.value = false;
@@ -234,7 +243,7 @@ export default defineComponent({
       deleteItem,
       handlePictureCardPreview,
       addFile,
-      handleRemove
+      handleRemove,
     };
   },
 });

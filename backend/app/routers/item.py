@@ -28,9 +28,14 @@ async def get_item_detal(itemid:int,user: UserBase = Depends(check_jwt_token), d
     return db.query(Item).filter_by(id=itemid).first()
 
 @item.post("/add_item")
-async def add_item(name:str=Form(...),describe:str=Form(...),stock:int=Form(...),prince:float=Form(...),files: list[UploadFile]=File(...),user: UserBase = Depends(check_jwt_token),db: Session = Depends(get_db)):
+async def add_item(request: Request,user: UserBase = Depends(check_jwt_token),db: Session = Depends(get_db)):
     uploaded_files_info = []
-
+    form: UploadFile = await request.form()
+    name=form.get("name")
+    describe=form.get("describe")
+    stock=form.get("stock")
+    prince=form.get("prince")
+    files=form.get("files")
     new_item = Item(
         name=name,
         describe=describe,
