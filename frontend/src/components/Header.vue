@@ -10,13 +10,14 @@ const handleSelect = (key: string, keyPath: string[]) => {
 
 <template>
   <el-row>
-    <el-col :span="9">
+    <el-col :lg="6" :md="9" :sm="12" :xs="15">
       <a href="/">
         <!-- <img src="/logo.png" class="logo" alt="你好" /> -->
         <h3>鲸币</h3>
       </a>
     </el-col>
-    <el-col :span="9">
+    <el-col :lg="6" :md="9" :sm="12" :xs="15">
+      
       <el-menu
         :default-active="activeIndex"
         mode="horizontal"
@@ -29,7 +30,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
       </el-menu>
     </el-col>
 
-    <el-col :span="6">
+    <el-col :lg="3" :md="6" :sm="9" :xs="12">
       <el-link style="float: right;margin-top:20px;" type="primary">
         <Login />
       </el-link>
