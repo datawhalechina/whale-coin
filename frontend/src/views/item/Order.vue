@@ -97,145 +97,165 @@
 </template>
   
   <script lang="ts">
-import { defineComponent, ref, onMounted } from "vue";
-import {
-  getOrderAPI,
-  getOrderDetalAPI,
-  addOrderAPI,
-  deleteOrderAPI,
-} from "../../request/item/api";
+    // 导入需要的 Vue 功能
+    import { defineComponent, ref, onMounted } from "vue";
+    // 导入与订单相关的 API
+    import {
+      getOrderAPI,
+      getOrderDetalAPI,
+      addOrderAPI,
+      deleteOrderAPI,
+    } from "../../request/item/api";
 
-interface Order {
-  id: number;
-  user_id: number;
-  itemid: number;
-  quantity: number;
-  order_type: string;
-  status: string;
-  toal_price: number;
-  address: string;
-  phone: string;
-  audit_id: number;
-  create_time: Date;
-}
+    /**
+     * 定义订单接口，包含订单的所有属性
+     */
+    interface Order {
+      id: number;
+      user_id: number;
+      itemid: number;
+      quantity: number;
+      order_type: string;
+      status: string;
+      toal_price: number;
+      address: string;
+      phone: string;
+      audit_id: number;
+      create_time: Date;
+    }
 
-export default defineComponent({
-  name: "OrderPage",
-  setup() {
-    // 初始化数据
-    const orderList = ref<Order[]>([]);
-    const addOrderModalVisible = ref(false);
-    const detailModalVisible = ref(false);
-    const addOrderForm = ref<Order>({
-      id: 0,
-      user_id: 0,
-      itemid: 0,
-      quantity: 0,
-      order_type: "",
-      status: "",
-      toal_price: 0,
-      address: "",
-      phone: "",
-      audit_id: 0,
-      create_time: new Date(),
-    });
-    const detailOrder = ref<Order>({
-      id: 0,
-      user_id: 0,
-      itemid: 0,
-      quantity: 0,
-      order_type: "",
-      status: "",
-      toal_price: 0,
-      address: "",
-      phone: "",
-      audit_id: 0,
-      create_time: new Date(),
-    });
-
-    // 获取 Order 列表数据
-    const getOrders = async () => {
-      try {
-        const response = await getOrderAPI();
-        orderList.value = response.data;
-      } catch (error) {
-        console.error("获取 Order 列表失败:", error);
-      }
-    };
-
-    // 显示添加 Order 模态框
-    const showAddOrderModal = () => {
-      addOrderModalVisible.value = true;
-    };
-
-    // 提交添加 Order
-    const submitAddOrder = async () => {
-      try {
-        const response = await addOrderAPI({
-          quantity: addOrderForm.value.quantity,
-          itemid: addOrderForm.value.itemid,
-          address: addOrderForm.value.address,
-          phone: addOrderForm.value.phone,
-          status: addOrderForm.value.status,
-          order_type: addOrderForm.value.order_type,
-          toal_price: addOrderForm.value.toal_price,
-          user_id: addOrderForm.value.user_id,
+    // 定义 Vue 组件
+    export default defineComponent({
+      name: "OrderPage",
+      setup() {
+        // 初始化数据
+        const orderList = ref<Order[]>([]);
+        const addOrderModalVisible = ref(false);
+        const detailModalVisible = ref(false);
+        const addOrderForm = ref<Order>({
+          id: 0,
+          user_id: 0,
+          itemid: 0,
+          quantity: 0,
+          order_type: "",
+          status: "",
+          toal_price: 0,
+          address: "",
+          phone: "",
+          audit_id: 0,
+          create_time: new Date(),
         });
-        if (response.status === 200) {
-          addOrderModalVisible.value = false;
+        const detailOrder = ref<Order>({
+          id: 0,
+          user_id: 0,
+          itemid: 0,
+          quantity: 0,
+          order_type: "",
+          status: "",
+          toal_price: 0,
+          address: "",
+          phone: "",
+          audit_id: 0,
+          create_time: new Date(),
+        });
+
+        /**
+         * 获取订单列表数据的异步函数
+         * 如果获取成功，更新 orderList 的值，否则抛出错误并记录日志
+         */
+        const getOrders = async () => {
+          try {
+            const response = await getOrderAPI();
+            orderList.value = response.data;
+          } catch (error) {
+            console.error("获取 Order 列表失败:", error);
+          }
+        };
+
+        /**
+         * 显示添加订单模态框的函数
+         * 通过修改变量 addOrderModalVisible 的值来显示模态框
+         */
+        const showAddOrderModal = () => {
+          addOrderModalVisible.value = true;
+        };
+
+        /**
+         * 提交添加订单的异步函数
+         * 如果添加成功，关闭模态框并刷新订单列表，否则抛出错误并记录日志
+         */
+        const submitAddOrder = async () => {
+          try {
+            const response = await addOrderAPI({
+              quantity: addOrderForm.value.quantity,
+              itemid: addOrderForm.value.itemid,
+              address: addOrderForm.value.address,
+              phone: addOrderForm.value.phone,
+              status: addOrderForm.value.status,
+              order_type: addOrderForm.value.order_type,
+              toal_price: addOrderForm.value.toal_price,
+              user_id: addOrderForm.value.user_id,
+            });
+            if (response.status === 200) {
+              addOrderModalVisible.value = false;
+              getOrders();
+            } else {
+              console.error("添加 Order 失败");
+            }
+          } catch (error) {
+            console.error("添加 Order 失败:", error);
+          }
+        };
+
+        /**
+         * 显示详情模态框的异步函数
+         * 根据 order.id 获取订单详情，更新 detailOrder 的值并显示模态框
+         */
+        const showDetailModal = async (order: Order) => {
+          try {
+            const response = await getOrderDetalAPI({ orderid: order.id });
+            detailOrder.value = response.data;
+            detailModalVisible.value = true;
+          } catch (error) {
+            console.error("获取 Order 详情失败:", error);
+          }
+        };
+
+        // 删除订单的异步函数
+        const deleteOrder = async (id: number) => {
+          try {
+            const response = await deleteOrderAPI({ orderid: id });
+            if (response.status === 200) {
+              getOrders();
+            } else {
+              console.error("删除 Order 失败");
+            }
+          } catch (error) {
+            console.error("删除 Order 失败:", error);
+          }
+        };
+
+        // 页面加载时获取数据
+        onMounted(() => {
           getOrders();
-        } else {
-          console.error("添加 Order 失败");
-        }
-      } catch (error) {
-        console.error("添加 Order 失败:", error);
-      }
-    };
+        });
 
-    // 显示详情模态框
-    const showDetailModal = async (order: Order) => {
-      try {
-        const response = await getOrderDetalAPI({ orderid: order.id });
-        detailOrder.value = response.data;
-        detailModalVisible.value = true;
-      } catch (error) {
-        console.error("获取 Order 详情失败:", error);
-      }
-    };
-
-    // 删除 Order
-    const deleteOrder = async (id: number) => {
-      try {
-        const response = await deleteOrderAPI({ orderid: id });
-        if (response.status === 200) {
-          getOrders();
-        } else {
-          console.error("删除 Order 失败");
-        }
-      } catch (error) {
-        console.error("删除 Order 失败:", error);
-      }
-    };
-
-    // 页面加载时获取数据
-    onMounted(() => {
-      getOrders();
+        // 返回组件所需的响应式数据和函数
+        return {
+          orderList,
+          addOrderModalVisible,
+          detailModalVisible,
+          addOrderForm,
+          detailOrder,
+          showAddOrderModal,
+          submitAddOrder,
+          showDetailModal,
+          deleteOrder,
+        };
+      },
     });
-
-    return {
-      orderList,
-      addOrderModalVisible,
-      detailModalVisible,
-      addOrderForm,
-      detailOrder,
-      showAddOrderModal,
-      submitAddOrder,
-      showDetailModal,
-      deleteOrder,
-    };
-  },
-});
 </script>
+
   
   <style scoped>
 </style>
