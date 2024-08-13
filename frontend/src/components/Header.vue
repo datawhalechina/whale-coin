@@ -16,7 +16,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
         <h3>鲸币</h3>
       </a>
     </el-col>
-    <el-col :lg="6" :md="9" :sm="12" :xs="15">
+    <el-col :lg="9" :md="12" :sm="15" :xs="18">
       
       <el-menu
         :default-active="activeIndex"
