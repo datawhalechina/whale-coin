@@ -154,6 +154,7 @@ export default defineComponent({
       }
     };
 
+    // 处理文件移除事件
     const handleRemove: UploadProps["onRemove"] = (uploadFile: UploadFile) => {
       files.value = files.value.filter(
         (file: File) => file.name != uploadFile.name
@@ -161,6 +162,7 @@ export default defineComponent({
       console.log(files);
     };
 
+    // 处理图片预览事件
     const handlePictureCardPreview: UploadProps["onPreview"] = (
       uploadFile: UploadFile
     ) => {
@@ -173,8 +175,8 @@ export default defineComponent({
       addItemModalVisible.value = true;
     };
 
+    // 添加文件到列表
     const addFile = (uploadFile: UploadFile) => {
-      // files.value.push(uploadFile.file);
       console.log(uploadFile, files.value);
     };
     // 提交添加 Item
@@ -228,6 +230,7 @@ export default defineComponent({
       getItems();
     });
 
+    // 返回所有定义的变量和方法
     return {
       itemList,
       addItemModalVisible,
