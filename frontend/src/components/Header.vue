@@ -10,7 +10,7 @@ const handleSelect = (key: string, keyPath: string[]) => {
 
 <template>
   <el-row>
-    <el-col :lg="6" :md="9" :sm="12" :xs="15">
+    <el-col :lg="3" :md="6" :sm="9" :xs="12">
       <a href="/">
         <!-- <img src="/logo.png" class="logo" alt="你好" /> -->
         <h3>鲸币</h3>
