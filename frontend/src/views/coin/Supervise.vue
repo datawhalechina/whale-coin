@@ -109,6 +109,7 @@ const delete_user = async ()=> {
 
 <template>
     <div>
+      <div>
     <el-button type="primary" @click="add">新增</el-button>
     <el-button v-if="currentRow" type="primary" @click="activate_user">同意</el-button>
     <el-button v-if="currentRow" type="primary" @click="delete_user">拒绝</el-button>
@@ -172,6 +173,7 @@ const delete_user = async ()=> {
     <el-table-column prop="apply_time" label="申请时间" />
     <el-table-column prop="decision" label="审批决定" />
   </el-table>
+    </div>
 </template>
 
 <style lang="scss" scoped>

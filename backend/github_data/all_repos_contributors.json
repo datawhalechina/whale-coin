@@ -1,0 +1,1262 @@
+[
+    {
+        "repo_name": ".github",
+        "contributors": [
+            "SuperSupeng",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "agent-tutorial",
+        "contributors": [
+            "Jin-Zhang-Yaoguang",
+            "Tangent-90C",
+            "Aomferni",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "ai-club",
+        "contributors": [
+            "anine09",
+            "motewei"
+        ]
+    },
+    {
+        "repo_name": "aima-notes",
+        "contributors": [
+            "KelvinF97",
+            "siyuxin",
+            "anine09",
+            "yzy-fulture",
+            "YinHan-Zhang",
+            "Sm1les",
+            "wenhao0214"
+        ]
+    },
+    {
+        "repo_name": "awesome-compression",
+        "contributors": [
+            "ironartisan",
+            "sunhanyu714",
+            "Wings236",
+            "JinYu1998",
+            "halolah",
+            "telegraph-pole-head",
+            "Sm1les",
+            "jwwthu"
+        ]
+    },
+    {
+        "repo_name": "camel-agent-tutorial",
+        "contributors": [
+            "jjyaoao",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "casual-inference",
+        "contributors": [
+            "hrjtju",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "caublazer",
+        "contributors": [
+            "whw199833",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "coggle",
+        "contributors": [
+            "finlay-liu"
+        ]
+    },
+    {
+        "repo_name": "competition-baseline",
+        "contributors": [
+            "finlay-liu",
+            "bettenW",
+            "Sm1les",
+            "muxiaoxiong",
+            "anine09",
+            "turkeymz",
+            "yinpub",
+            "yphacker"
+        ]
+    },
+    {
+        "repo_name": "cs25-notes",
+        "contributors": [
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "d2l-ai-solutions-manual",
+        "contributors": [
+            "KMnO4-zx",
+            "catcooc",
+            "AXYZdong",
+            "Relph1119",
+            "LinChentang",
+            "zarjun",
+            "Kailigithub",
+            "Kedreamix",
+            "gudehhh666",
+            "Hongru0306",
+            "YikunHan42",
+            "zzd2001",
+            "AIzealotwu",
+            "Ethan-Chen-plus",
+            "YapWH1208",
+            "Rookie-Kai",
+            "YueZhengMeng",
+            "xyw1",
+            "2951121599",
+            "logan-zou",
+            "YinHan-Zhang",
+            "liuxu-manifold",
+            "0-yy-0",
+            "Tsumugii24",
+            "baimuchu",
+            "jjyaoao",
+            "yinhailong124",
+            "NorthblueM",
+            "yxyibb"
+        ]
+    },
+    {
+        "repo_name": "daily-interview",
+        "contributors": [
+            "Heitao5200",
+            "xiaorancs",
+            "hclown9804",
+            "hscspring",
+            "disguiseR1",
+            "Richman-wang",
+            "kangbrilliant",
+            "ZhT515",
+            "shadowings-zy",
+            "Fatflower",
+            "Yzmshjd",
+            "maoweixy",
+            "Sm1les",
+            "bushou-yhh",
+            "LinglingGreat",
+            "lynnhuang97",
+            "muxiaoxiong"
+        ]
+    },
+    {
+        "repo_name": "datawhale-homepage",
+        "contributors": [
+            "shadowings-zy"
+        ]
+    },
+    {
+        "repo_name": "deep-learning-for-computer-vision",
+        "contributors": [
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "design-and-analysis-of-algorithm",
+        "contributors": [
+            "coldwater007",
+            "LavenderGu",
+            "ztc-111",
+            "Katniss1025",
+            "siyuan-bruce",
+            "Yuwei-Zhao"
+        ]
+    },
+    {
+        "repo_name": "dive-into-cv-pytorch",
+        "contributors": [
+            "monkeyDemon",
+            "szuRyan",
+            "QiangZiBro",
+            "yxyibb",
+            "Dulpyanghaobo",
+            "skywatcherfanl",
+            "2209520576",
+            "shenhao-stu",
+            "Sm1les",
+            "Gookr5",
+            "leafy-lee"
+        ]
+    },
+    {
+        "repo_name": "DOPMC",
+        "contributors": [
+            "Sm1les",
+            "SuperSupeng",
+            "Truth-14"
+        ]
+    },
+    {
+        "repo_name": "easy-grokking-deep-learning",
+        "contributors": [
+            "isLinXu"
+        ]
+    },
+    {
+        "repo_name": "easy-rl",
+        "contributors": [
+            "qiwang067",
+            "yyysjz1997",
+            "johnjim0816",
+            "Sm1les",
+            "BeBraveBeCurious",
+            "taojunhui",
+            "Ynjxsjmh",
+            "GorgeousWang",
+            "olianate",
+            "ssccinng",
+            "xyw5vplus1",
+            "zh4men9"
+        ]
+    },
+    {
+        "repo_name": "easy-ros2arm",
+        "contributors": [
+            "Evan-wyl"
+        ]
+    },
+    {
+        "repo_name": "ensemble-learning",
+        "contributors": [
+            "Leolee11111"
+        ]
+    },
+    {
+        "repo_name": "fantastic-matplotlib",
+        "contributors": [
+            "skywateryang"
+        ]
+    },
+    {
+        "repo_name": "faster-git",
+        "contributors": [
+            "captain-tony",
+            "ZhikangNiu",
+            "libihan",
+            "tomowang",
+            "shenhao-stu",
+            "xgdyp",
+            "martinx",
+            "renlle",
+            "2951121599",
+            "ecnu-stju",
+            "vvJesse"
+        ]
+    },
+    {
+        "repo_name": "free-excel",
+        "contributors": [
+            "muxiaoxiong",
+            "yangjiada",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "fun-marl",
+        "contributors": [
+            "Evan-wyl",
+            "Sm1les",
+            "WangWang318"
+        ]
+    },
+    {
+        "repo_name": "fun-rec",
+        "contributors": [
+            "ruyiluo",
+            "kenken-xr",
+            "swallown1",
+            "zhongqiangwu960812",
+            "wangych6",
+            "Lyons-T",
+            "LSGOMYP",
+            "morningsky",
+            "hilbert-yaa",
+            "maxxbaba",
+            "pearfl",
+            "ChungKingExpress",
+            "GH1995",
+            "SYC1123",
+            "luzixiao",
+            "storyandwine",
+            "Evan-wyl"
+        ]
+    },
+    {
+        "repo_name": "go-talent",
+        "contributors": [
+            "Light-City",
+            "SuperSupeng",
+            "leungkafai",
+            "yxyibb"
+        ]
+    },
+    {
+        "repo_name": "grape-book",
+        "contributors": [
+            "xinqi-fan",
+            "ironartisan",
+            "liu-yang-maker",
+            "rickyxume",
+            "moyanxinxu",
+            "YinHan-Zhang"
+        ]
+    },
+    {
+        "repo_name": "hands-dirty-nlp",
+        "contributors": [
+            "kangbrilliant",
+            "7291019"
+        ]
+    },
+    {
+        "repo_name": "hands-on-data-analysis",
+        "contributors": [
+            "andongBlue",
+            "hua03"
+        ]
+    },
+    {
+        "repo_name": "hands-on-llm",
+        "contributors": [
+            "Jin-Zhang-Yaoguang",
+            "hscspring",
+            "zhangfanTJU",
+            "LinglingGreat",
+            "Sm1les",
+            "powerycy"
+        ]
+    },
+    {
+        "repo_name": "hello-net",
+        "contributors": [
+            "clorisqiu1",
+            "BlueLumen",
+            "KiritoStar"
+        ]
+    },
+    {
+        "repo_name": "huawei-od-python",
+        "contributors": [
+            "Relph1119",
+            "PeakWalkerLYH",
+            "BITprogramMan",
+            "libihan",
+            "D-Dragon0318",
+            "catcooc",
+            "Aomferni",
+            "Regankevin",
+            "Westwood-Lin",
+            "duqing12",
+            "CompassNull",
+            "JackLi-CS",
+            "voyagebio"
+        ]
+    },
+    {
+        "repo_name": "hugging-audio",
+        "contributors": [
+            "YikunHan42",
+            "Sm1les",
+            "varinexyh"
+        ]
+    },
+    {
+        "repo_name": "hugging-llm",
+        "contributors": [
+            "hscspring",
+            "Relph1119",
+            "HeteroCat",
+            "lynnhuang97",
+            "Sm1les",
+            "zhaozhiming",
+            "pzc163",
+            "anine09",
+            "fayer0love",
+            "fancyboi999",
+            "likefallwind"
+        ]
+    },
+    {
+        "repo_name": "hugging-multi-agent",
+        "contributors": [
+            "limafang",
+            "GoldWaterFall",
+            "Sm1les",
+            "LinightKira"
+        ]
+    },
+    {
+        "repo_name": "hugging-rl",
+        "contributors": [
+            "Evan-wyl",
+            "CuteLemon0v0"
+        ]
+    },
+    {
+        "repo_name": "hugging-sd",
+        "contributors": [
+            "xjli360",
+            "KashiwaByte",
+            "xiaozhuangma",
+            "Fantastic121380",
+            "guanidine",
+            "flawzhang",
+            "AnSuZeaT",
+            "joyenjoye",
+            "it-worker-club",
+            "Sm1les",
+            "QJieWang"
+        ]
+    },
+    {
+        "repo_name": "intro-mathmodel",
+        "contributors": [
+            "ShituoMa",
+            "anine09",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "joyful-pandas",
+        "contributors": [
+            "GYHHAHA",
+            "Sm1les",
+            "dependabot[bot]",
+            "xu-kai-xu"
+        ]
+    },
+    {
+        "repo_name": "joyrl",
+        "contributors": [
+            "johnjim0816",
+            "ZDYnb",
+            "scchy",
+            "Kailigithub",
+            "qiwang067",
+            "Skypow2012"
+        ]
+    },
+    {
+        "repo_name": "joyrl-book",
+        "contributors": [
+            "johnjim0816",
+            "clorisqiu1",
+            "Sm1les",
+            "ZDYnb",
+            "Misaki-Wang",
+            "gyyer",
+            "wangzhongren-code"
+        ]
+    },
+    {
+        "repo_name": "juicy-bigdata",
+        "contributors": [
+            "shenhao-stu",
+            "wzfer",
+            "Relph1119",
+            "ditingdapeng",
+            "mba1398",
+            "Sm1les",
+            "Weihong-Liu"
+        ]
+    },
+    {
+        "repo_name": "key-book",
+        "contributors": [
+            "zhimin-z",
+            "zhanhao93",
+            "Sm1les",
+            "leafy-lee",
+            "youngfish42",
+            "mlw67"
+        ]
+    },
+    {
+        "repo_name": "latex-template",
+        "contributors": [
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "learn-nlp-with-transformers",
+        "contributors": [
+            "PingNie1",
+            "zhxnlp",
+            "zhangfanTJU",
+            "caijie12138",
+            "erenup-tt",
+            "luzixiao"
+        ]
+    },
+    {
+        "repo_name": "learn-python-the-smart-way",
+        "contributors": [
+            "ChuanyuXue",
+            "anine09",
+            "mba1398",
+            "Lix1993",
+            "TheadoraTang",
+            "supercaizehua"
+        ]
+    },
+    {
+        "repo_name": "learn-python-the-smart-way-v2",
+        "contributors": [
+            "anine09",
+            "Misaki-Wang",
+            "zarjun",
+            "kalworth",
+            "SongWWWWWW",
+            "limafang"
+        ]
+    },
+    {
+        "repo_name": "leedl-tutorial",
+        "contributors": [
+            "DatawhaleXiuyuan",
+            "spareribs",
+            "qiwang067",
+            "yyysjz1997",
+            "Imay-King",
+            "Heitao5200",
+            "Hirotransfer",
+            "huangmh11",
+            "Sm1les",
+            "LilRachel",
+            "huaiyuechusan"
+        ]
+    },
+    {
+        "repo_name": "leegenai-tutorial",
+        "contributors": [
+            "qiwang067",
+            "jodie-kang",
+            "yyysjz1997",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "leeml-notes",
+        "contributors": [
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "leetcode-notes",
+        "contributors": [
+            "itcharge",
+            "Sm1les",
+            "chg0901",
+            "wmjim",
+            "UncleLLD",
+            "296452965",
+            "handsometaoa",
+            "xuhu0115"
+        ]
+    },
+    {
+        "repo_name": "light-memory-pool",
+        "contributors": [
+            "Light-City"
+        ]
+    },
+    {
+        "repo_name": "light-thread-pool",
+        "contributors": [
+            "Light-City"
+        ]
+    },
+    {
+        "repo_name": "llm-cookbook",
+        "contributors": [
+            "logan-zou",
+            "Beyondzjl",
+            "xuhu0115",
+            "Weihong-Liu",
+            "Aphasia0515",
+            "Mitchell-xiyunfeng",
+            "joyenjoye",
+            "YixinZ-NUS",
+            "GKDGKD",
+            "YikunHan42",
+            "6forwater29",
+            "sunhanyu714",
+            "0-yy-0",
+            "LinChentang",
+            "xinqi-fan",
+            "hscspring",
+            "SaraiQX",
+            "KMnO4-zx",
+            "AntoineChn",
+            "YinHan-Zhang",
+            "lynnhuang97",
+            "eltociear",
+            "Kedreamix",
+            "Sm1les",
+            "Jin-Zhang-Yaoguang",
+            "mgsky1",
+            "Nagi-ovo",
+            "Hongru0306",
+            "Michael-Jiahao-Zhang",
+            "Zhiyuan-Fan"
+        ]
+    },
+    {
+        "repo_name": "llm-deploy",
+        "contributors": [
+            "hscspring",
+            "Ariasuxy",
+            "ironartisan",
+            "gyfffffff",
+            "AmourWaltz",
+            "YuWangyin",
+            "Sm1les",
+            "Nagi-ovo",
+            "Tsumugii24"
+        ]
+    },
+    {
+        "repo_name": "llm-research",
+        "contributors": [
+            "linjh1118",
+            "Sm1les",
+            "Charon-ops"
+        ]
+    },
+    {
+        "repo_name": "llm-universe",
+        "contributors": [
+            "xuhu0115",
+            "logan-zou",
+            "2951121599",
+            "lta155",
+            "0-yy-0",
+            "Myoungs",
+            "YikunHan42",
+            "tackhwa",
+            "FutureUnreal",
+            "chg0901",
+            "enterwiz",
+            "JackBaixue",
+            "LinChentang",
+            "Sm1les",
+            "Weihong-Liu",
+            "honlu",
+            "halolah",
+            "gckwd",
+            "XiaoyangBi"
+        ]
+    },
+    {
+        "repo_name": "llms-from-scratch-cn",
+        "contributors": [
+            "Ethan-Chen-plus",
+            "Tangent-90C",
+            "Beyondzjl",
+            "Pr04Ark",
+            "WangHaoyuuu",
+            "dingyue772",
+            "aJupyter",
+            "SamanthaTso",
+            "morcake",
+            "AXYZdong",
+            "Tsumugii24",
+            "ariafyy",
+            "Rj222",
+            "jodie-kang",
+            "mlw67",
+            "0-yy-0",
+            "Sm1les",
+            "logan-zou",
+            "Weihong-Liu",
+            "graility",
+            "prime234",
+            "sunhanyu714"
+        ]
+    },
+    {
+        "repo_name": "machine-learning-toy-code",
+        "contributors": [
+            "johnjim0816",
+            "GYHHAHA",
+            "muxiaoxiong",
+            "Higgins995"
+        ]
+    },
+    {
+        "repo_name": "magic-cv",
+        "contributors": [
+            "chenxindaaa"
+        ]
+    },
+    {
+        "repo_name": "ML-FTTI",
+        "contributors": [
+            "GYHHAHA"
+        ]
+    },
+    {
+        "repo_name": "obsession-with-ai",
+        "contributors": [
+            "YikunHan42"
+        ]
+    },
+    {
+        "repo_name": "office-automation",
+        "contributors": [
+            "muxiaoxiong",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "openmmlab-tutorial",
+        "contributors": [
+            "sanbuphy"
+        ]
+    },
+    {
+        "repo_name": "paper-chart-tutorial",
+        "contributors": [
+            "LSGOMYP",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "powerful-numpy",
+        "contributors": [
+            "hscspring",
+            "Sm1les",
+            "robbietree8"
+        ]
+    },
+    {
+        "repo_name": "pumpkin-book",
+        "contributors": [
+            "Sm1les",
+            "archwalker",
+            "xhqing",
+            "shanry",
+            "Ye980226",
+            "xiaoxiaoyao",
+            "Heitao5200",
+            "Ggmatch",
+            "Nono17",
+            "spareribs",
+            "xavierzw",
+            "LeoLRH",
+            "drkaen",
+            "MrBigFan",
+            "ChaiByte",
+            "Benature",
+            "Jian-Yin-Shine",
+            "ykaitao",
+            "LilRachel",
+            "LongJH",
+            "queensferryme",
+            "rudeigerc",
+            "feijuan",
+            "juxiao",
+            "chao-sun01io"
+        ]
+    },
+    {
+        "repo_name": "releasing-research-code",
+        "contributors": [
+            "rstojnic",
+            "RJT1990",
+            "youngfish42",
+            "SuperSupeng",
+            "sarthakpati",
+            "faroit",
+            "shagunsodhani",
+            "alefnula"
+        ]
+    },
+    {
+        "repo_name": "repo-template",
+        "contributors": [
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "repo-test",
+        "contributors": [
+            "GYHHAHA"
+        ]
+    },
+    {
+        "repo_name": "rl-papers",
+        "contributors": [
+            "johnjim0816",
+            "wenhao0214",
+            "clorisqiu1",
+            "L3Y1Q2"
+        ]
+    },
+    {
+        "repo_name": "scientific-computing",
+        "contributors": [
+            "ShituoMa"
+        ]
+    },
+    {
+        "repo_name": "self-dify",
+        "contributors": [
+            "Bald0Wang",
+            "limafang",
+            "GKDGKD",
+            "AXYZdong",
+            "Hoshino-wind",
+            "Sm1les",
+            "Aomferni",
+            "jackley-dev"
+        ]
+    },
+    {
+        "repo_name": "self-llm",
+        "contributors": [
+            "KMnO4-zx",
+            "L4HeyXiao",
+            "Caleb-Sun-jz",
+            "Aphasia0515",
+            "Hongru0306",
+            "Tsumugii24",
+            "logan-zou",
+            "dingyue772",
+            "Kailigithub",
+            "mlw67",
+            "sssanssss",
+            "BaiYu96",
+            "AXYZdong",
+            "thomas-yanxin",
+            "Joe-2002",
+            "cswangxiaowei",
+            "Unicornlyy",
+            "Bald0Wang",
+            "jjyaoao",
+            "LucaChen",
+            "sanbuphy",
+            "zhangfanTJU",
+            "chg0901",
+            "acwwt",
+            "KashiwaByte",
+            "jodie-kang",
+            "LikeGiver",
+            "Kedreamix",
+            "Jin-Zhang-Yaoguang",
+            "Heitao5200"
+        ]
+    },
+    {
+        "repo_name": "smoothly-vslam",
+        "contributors": [
+            "hu-minghao"
+        ]
+    },
+    {
+        "repo_name": "so-large-lm",
+        "contributors": [
+            "andongBlue",
+            "zhangfanTJU",
+            "mlw67",
+            "Relph1119",
+            "Tangent-90C"
+        ]
+    },
+    {
+        "repo_name": "sora-tutorial",
+        "contributors": [
+            "shadowings-zy",
+            "ccyhxg",
+            "hscspring",
+            "Sm1les",
+            "powerycy"
+        ]
+    },
+    {
+        "repo_name": "statistical-learning-method-solutions-manual",
+        "contributors": [
+            "Relph1119",
+            "whw199833",
+            "NorthblueM"
+        ]
+    },
+    {
+        "repo_name": "suno-scan",
+        "contributors": [
+            "Light-City",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "sweetalk-data-structure",
+        "contributors": [
+            "Sm1les",
+            "Joe-2002"
+        ]
+    },
+    {
+        "repo_name": "sweetalk-design-pattern",
+        "contributors": [
+            "hscspring",
+            "SheltonXiao",
+            "libihan",
+            "Relph1119",
+            "feijuan",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "sweettalk-django",
+        "contributors": [
+            "Joe-2002"
+        ]
+    },
+    {
+        "repo_name": "team-learning",
+        "contributors": [
+            "LSGOMYP",
+            "2209520576",
+            "LilRachel",
+            "Klauszhao",
+            "zjieshi",
+            "xiaorancs",
+            "mlw67",
+            "liyunjia97",
+            "Sm1les",
+            "Deemakaice",
+            "SuperSupeng"
+        ]
+    },
+    {
+        "repo_name": "team-learning-cv",
+        "contributors": [
+            "LSGOMYP",
+            "finlay-liu",
+            "Gookr5",
+            "szuRyan",
+            "e10101"
+        ]
+    },
+    {
+        "repo_name": "team-learning-data-mining",
+        "contributors": [
+            "LSGOMYP",
+            "yyysjz1997",
+            "Evan-wyl",
+            "liyunjia97",
+            "finlay-liu",
+            "bettenW",
+            "realYurkOfGitHub",
+            "AmangAris",
+            "leungkafai",
+            "muxiaoxiong"
+        ]
+    },
+    {
+        "repo_name": "team-learning-nlp",
+        "contributors": [
+            "Deemakaice",
+            "LSGOMYP",
+            "RongqinChen",
+            "chenlian-zhou",
+            "finlay-liu",
+            "wxj630",
+            "km1994"
+        ]
+    },
+    {
+        "repo_name": "team-learning-program",
+        "contributors": [
+            "LSGOMYP",
+            "muxiaoxiong",
+            "realYurkOfGitHub",
+            "fghg123",
+            "hanhuijin",
+            "SuperSupeng",
+            "chenkai66",
+            "Relph1119",
+            "xiaorancs",
+            "it-worker-tango",
+            "Jnewgeek",
+            "FinYang",
+            "cyl-sql",
+            "JeffDing",
+            "Free-Coder",
+            "zyorangecat",
+            "Jun-James",
+            "ddlBoJack",
+            "JuneYaooo",
+            "threethousand520",
+            "Dulpyanghaobo"
+        ]
+    },
+    {
+        "repo_name": "team-learning-rl",
+        "contributors": [
+            "LSGOMYP"
+        ]
+    },
+    {
+        "repo_name": "team-learning-sql",
+        "contributors": [
+            "mba1398",
+            "SuperSupeng"
+        ]
+    },
+    {
+        "repo_name": "thorough-pytorch",
+        "contributors": [
+            "ZhikangNiu",
+            "LiJiaqi96",
+            "logan-zou",
+            "Mr-atomer",
+            "RangeKing",
+            "limafang",
+            "SAKURA-CAT",
+            "laffycat",
+            "xinqi-fan",
+            "shenhao-stu",
+            "DDreame",
+            "liu-yang-maker",
+            "Kedreamix",
+            "Relph1119",
+            "dependabot[bot]",
+            "dawin2015",
+            "andongBlue"
+        ]
+    },
+    {
+        "repo_name": "time-series-learning",
+        "contributors": [
+            "Harold-Ran"
+        ]
+    },
+    {
+        "repo_name": "tiny-universe",
+        "contributors": [
+            "Hongru0306",
+            "KMnO4-zx",
+            "logan-zou",
+            "Chatonz",
+            "Sm1les",
+            "dependabot[bot]"
+        ]
+    },
+    {
+        "repo_name": "torch-rechub",
+        "contributors": [
+            "morningsky",
+            "bokang-ugent",
+            "yinpu",
+            "wangych6",
+            "1985312383",
+            "Hjh233",
+            "1qweasdzxc",
+            "IceCapriccio",
+            "HaSai666",
+            "InEase",
+            "storyandwine",
+            "GinNie23",
+            "JJplane"
+        ]
+    },
+    {
+        "repo_name": "udl-tutorial",
+        "contributors": [
+            "Sm1les",
+            "likangmax"
+        ]
+    },
+    {
+        "repo_name": "undingable-optimization",
+        "contributors": [
+            "LinChentang",
+            "liu-yang-maker",
+            "suifengyougu",
+            "GKDGKD",
+            "linjing-lab",
+            "DMax1314",
+            "Relph1119",
+            "YangSuoly"
+        ]
+    },
+    {
+        "repo_name": "unlock-hf",
+        "contributors": [
+            "moyanxinxu",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "unusual-deep-learning",
+        "contributors": [
+            "liu-yang-maker",
+            "LinChentang",
+            "BackMountainDevil"
+        ]
+    },
+    {
+        "repo_name": "vced",
+        "contributors": [
+            "SuperSupeng",
+            "KelvinF97",
+            "YikunHan42",
+            "Zhiyuan-Fan",
+            "cocoshe",
+            "2951121599",
+            "Richard-Bian",
+            "Ethan-Chen-plus",
+            "Nick17t",
+            "Sm1les",
+            "zadarmo",
+            "guofei1989",
+            "sshimii",
+            "alili"
+        ]
+    },
+    {
+        "repo_name": "whale-anno",
+        "contributors": [
+            "Skypow2012",
+            "Sm1les",
+            "xgdyp"
+        ]
+    },
+    {
+        "repo_name": "whale-coin",
+        "contributors": [
+            "Kailigithub",
+            "fengyunzaidushi",
+            "omige",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "whale-governance",
+        "contributors": [
+            "SuperSupeng",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "whale-paper",
+        "contributors": [
+            "YikunHan42",
+            "jiangjin1999",
+            "AnSuZeaT",
+            "Relph1119",
+            "ChengaoJ",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "whale-quant",
+        "contributors": [
+            "2951121599",
+            "Jin-Zhang-Yaoguang",
+            "Kailigithub",
+            "dcrainsailing",
+            "Sm1les",
+            "YangSuoly",
+            "mba1398",
+            "lividsu"
+        ]
+    },
+    {
+        "repo_name": "whale-share",
+        "contributors": [
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "whale-starry",
+        "contributors": [
+            "Rogerlv51",
+            "SheldonLoveCoding",
+            "Light-City",
+            "martinx",
+            "Sw511",
+            "ChristopherCao",
+            "badmicroctrl",
+            "xuehuasu",
+            "grasscarp7",
+            "wsh-wood",
+            "Killing11L",
+            "OrangeReader",
+            "Vancool",
+            "nczitzk",
+            "S1mpleBug",
+            "XavierZXY"
+        ]
+    },
+    {
+        "repo_name": "whale-web",
+        "contributors": [
+            "tomowang",
+            "purplenigma",
+            "FreyaOne",
+            "tomturing"
+        ]
+    },
+    {
+        "repo_name": "what-is-vs",
+        "contributors": [
+            "SuperSupeng",
+            "CaucherWang",
+            "whenever5225",
+            "BenjaminXiang",
+            "YikunHan42",
+            "Sm1les",
+            "VarusJ",
+            "tianbing111"
+        ]
+    },
+    {
+        "repo_name": "white-cloud-robotics",
+        "contributors": [
+            "muzilyd",
+            "Sm1les"
+        ]
+    },
+    {
+        "repo_name": "wonderful-sql",
+        "contributors": [
+            "mba1398",
+            "Lix1993",
+            "Truth-14"
+        ]
+    },
+    {
+        "repo_name": "wow-plotly",
+        "contributors": [
+            "pidada"
+        ]
+    },
+    {
+        "repo_name": "zishu",
+        "contributors": [
+            "omige",
+            "weidesh",
+            "7n8fail",
+            "Kailigithub",
+            "fansi2020",
+            "Sm1les",
+            "AIzealotwu",
+            "KMnO4-zx",
+            "Susan2048",
+            "Xlight5",
+            "yyhhxx"
+        ]
+    }
+]

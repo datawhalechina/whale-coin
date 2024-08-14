@@ -2,7 +2,7 @@ node_modules
 dist
 .gitignore
 
-
+*.md
 # Editor directories and files
 .idea
 .vscode

@@ -1,14 +1,16 @@
-from sqlalchemy import Column, Integer, Float, VARCHAR, DateTime, Boolean
+from sqlalchemy import Column, Integer, Float, VARCHAR, DateTime, Boolean, String, Text
 from app.database import Base
 
+
 class Apply(Base):
-    __tablename__ = 'apply'
+    __tablename__ = "apply"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer)
     repo = Column(VARCHAR(200))
     role = Column(VARCHAR(200))
-    content = Column(VARCHAR(500))
+    content = Column(Text, nullable=True)
+    url = Column(VARCHAR(255), nullable=True, unique=True)
     record_time = Column(DateTime)
     apply_time = Column(DateTime)
     apply_status = Column(Boolean)
@@ -23,8 +25,9 @@ class Apply(Base):
     title = Column(VARCHAR(200))
     state = Column(VARCHAR(20))
 
+
 class Consume(Base):
-    __tablename__ = 'consume'
+    __tablename__ = "consume"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer)
@@ -35,8 +38,9 @@ class Consume(Base):
     confirm_time = Column(DateTime)
     price = Column(Float, default=0.0)
 
+
 class Bill(Base):
-    __tablename__ = 'bill'
+    __tablename__ = "bill"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
     user_id = Column(Integer)
