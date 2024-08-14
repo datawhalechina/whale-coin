@@ -21,27 +21,27 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 hashed_password = pwd_context.hash('zishu')
 
 # 定义SQL语句
-sql = '''
-INSERT INTO apply (user_id, repo, role, content, record_time)
-    VALUES (2, 'zishu', 'developer', 'pr_3', '2024-06-01');
-'''
+# sql = '''
+# INSERT INTO apply (user_id, repo, role, content, record_time)
+#     VALUES (2, 'zishu', 'developer', 'pr_3', '2024-06-01');
+# '''
 
-sql1 = '''
-INSERT INTO apply (user_id, repo, role, content, record_time)
-    VALUES (2, 'zishu', 'developer', 'issue_5', '2024-06-02');
-'''
+# sql1 = '''
+# INSERT INTO apply (user_id, repo, role, content, record_time)
+#     VALUES (2, 'zishu', 'developer', 'issue_5', '2024-06-02');
+# '''
 
 sql2 = f'''
 INSERT INTO users (username, phone, role, email, password)
-    VALUES ('管理员', '15812345678', 'admin', 'example@example.cn', '{hashed_password}');
+    VALUES ('管理员', '15812345612', 'fxy', 'example@example.cn', '{hashed_password}');
 '''
 
 # 插入数据的函数
 def insert_data():
     session = SessionLocal()
     try:
-        session.execute(text(sql))
-        session.execute(text(sql1))
+        # session.execute(text(sql))
+        # session.execute(text(sql1))
         session.execute(text(sql2))
         session.commit()
         print("Data inserted successfully.")

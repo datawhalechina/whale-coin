@@ -1,6 +1,7 @@
 <template>
 
-  <!-- Form -->
+  <div>
+    <!-- Form -->
   <span v-if="!loginstate.logined || loginstate.name.length==0">
     <el-button text @click="loginstate.dialogFormVisible = true">登录</el-button>
     <el-button text @click="registerFormVisible = true">注册</el-button>
@@ -55,6 +56,7 @@
       </span>
     </template>
   </el-dialog>
+  </div>
 
 
 

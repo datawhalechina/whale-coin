@@ -71,6 +71,7 @@ const submit = async() => {
 
 
 <template>
+   <div>
     <div>
     <el-button type="primary" @click="add">新增</el-button>
     </div>
@@ -106,6 +107,7 @@ const submit = async() => {
       </span>
     </template>
   </el-dialog>
+   </div>
 </template>
 
 <style lang="scss" scoped>
