@@ -21,7 +21,7 @@
 
     <!-- 添加 Item 模态框 -->
     <el-dialog v-model="addItemModalVisible" title="添加商品">
-      <el-form ref="addItemForm" v-model="addItemForm" label-width="80px">
+      <el-form v-model="addItemForm" label-width="80px">
         <el-form-item label="名称">
           <el-input v-model="addItemForm.name" />
         </el-form-item>
@@ -99,6 +99,7 @@
 // 导入 Vue 组件的 defineComponent、ref 和 onMounted 函数
 import { defineComponent, ref, onMounted } from "vue";
 // 导入与项目或应用程序相关的特定 API 函数
+document.title = "鲸币商品"
 import {
   getItemAPI,
   getItemDetal,

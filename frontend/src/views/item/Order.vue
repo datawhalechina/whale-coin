@@ -22,8 +22,8 @@
     </el-table>
 
     <!-- 添加 Order 模态框 -->
-    <el-dialog :visible.sync="addOrderModalVisible" title="添加 Order">
-      <el-form ref="addOrderForm" :model="addOrderForm" label-width="80px">
+    <el-dialog v-model="addOrderModalVisible" title="添加 Order">
+      <el-form :model="addOrderForm" label-width="80px">
         <el-form-item label="用户 ID">
           <el-input v-model="addOrderForm.user_id" />
         </el-form-item>
@@ -100,6 +100,7 @@
     // 导入需要的 Vue 功能
     import { defineComponent, ref, onMounted } from "vue";
     // 导入与订单相关的 API
+    document.title = "鲸币订单"
     import {
       getOrderAPI,
       getOrderDetalAPI,
