@@ -42,14 +42,14 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
     encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
     return encoded_jwt
 
-def check_user(db: Session, phone, password):
+def check_user(db: Session, name, password):
     """
     :param username:
     :param password:
     :return:
     """
     # user = users_db.get(username)
-    user = db.query(Users).filter(Users.phone== phone).first()
+    user = db.query(Users).filter(Users.username== name).first()
     if not user:
         return False
     # if not verify_password(password, user.get("password")):
@@ -60,8 +60,8 @@ def check_user(db: Session, phone, password):
 
 # 使用表单格式参数需要安装模块：python-multipart
 @router.post("/token", response_model=TokenModel)
-async def login_for_access_token(phone: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
-    user = check_user(db, phone, password)
+async def login_for_access_token(name: str = Form(...), password: str = Form(...), db: Session = Depends(get_db)):
+    user = check_user(db, name, password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
