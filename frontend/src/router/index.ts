@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory, RouteRecordRaw } from "vue-router";
+
  
 // 路由类型:RouteRecordRaw
 const routes: Array<RouteRecordRaw> = [
@@ -56,44 +57,52 @@ const routes: Array<RouteRecordRaw> = [
           name: "All",
           component: () => import("../views/user/All.vue"),
         },
-        {
-          path: "/coin/apply",
-          // 命名
-          name: "Apply",
-          component: () => import("../views/coin/Apply.vue"),
-        },
-        {
-          path: "/coin/supervise",
-          // 命名
-          name: "Supervise",
-          component: () => import("../views/coin/Supervise.vue"),
-        },
-        {
-          path: "/coin/consume",
-          // 命名
-          name: "Consume",
-          component: () => import("../views/coin/Consume.vue"),
-        },
-        {
-          path: "/coin/bill",
-          // 命名
-          name: "Bill",
-          component: () => import("../views/coin/Bill.vue"),
-        },
-        {
-          path: "/item/item",
-          // 命名
-          name: "Item",
-          component: () => import("../views/item/Item.vue"),
-        },
-        {
-          path: "/item/order",
-          // 命名
-          name: "Order",
-          component: () => import("../views/item/Order.vue"),
-        },
+       
     ]
   },
+  {
+    path:'/',
+    component: () => import('@/components/CoinLayout.vue'),
+    children:[
+      {
+        path: "/coin/apply",
+        // 命名
+        name: "Apply",
+        component: () => import("../views/coin/Apply.vue"),
+      },
+      {
+        path: "/coin/supervise",
+        // 命名
+        name: "Supervise",
+        component: () => import("../views/coin/Supervise.vue"),
+      },
+      {
+        path: "/coin/consume",
+        // 命名
+        name: "Consume",
+        component: () => import("../views/coin/Consume.vue"),
+      },
+      {
+        path: "/coin/bill",
+        // 命名
+        name: "Bill",
+        component: () => import("../views/coin/Bill.vue"),
+      },
+      {
+        path: "/item/item",
+        // 命名
+        name: "Item",
+        component: () => import("../views/item/Item.vue"),
+      },
+      {
+        path: "/item/order",
+        // 命名
+        name: "Order",
+        component: () => import("../views/item/Order.vue"),
+      },
+    ]
+    
+  }
   
   
   
