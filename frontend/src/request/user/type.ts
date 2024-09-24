@@ -1,6 +1,6 @@
 // 下面两个TS接口，表示要传的参数
 export interface ReqLogin {
-    phone: string
+    name: string
     password: string
 }
 
