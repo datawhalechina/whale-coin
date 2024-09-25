@@ -27,30 +27,29 @@
     </el-col>
   </el-row> -->
   <el-container>
-    <el-header>
-      <div class="header-container">
-        <a href="/">
-          <!-- <img src="/logo.png" class="logo" alt="你好" /> -->
-          <h2 class="text-2xl text-bold text-sky-600">鲸币</h2>
-        </a>
-        <!-- 电脑端菜单 -->
-        <el-menu
-          :default-active="activeIndex"
-          class="el-menu-demo"
-          mode="horizontal"
-          @select="handleSelect"
-          :ellipsis="false"
-        >
-          <el-menu-item index="1"><router-link to="/">首页</router-link></el-menu-item>
-          <el-menu-item index="2">课程</el-menu-item>
-          <el-menu-item index="3">资源</el-menu-item>
-          <el-menu-item index="4"><Login /></el-menu-item>
-        </el-menu>
-        <div class="menu-icon-container">
-          <el-icon class="menu-icon" @click="drawer = true"><Fold /></el-icon>
-        </div>
-      </div>
-    </el-header>
+    <el-header>  
+    <div class="flex justify-between items-center">  
+      <a href="/" class="flex items-center">  
+        <!-- <img src="/logo.png" class="logo" alt="你好" /> -->  
+        <h2 class="text-2xl font-bold text-sky-600">鲸币</h2>  
+      </a>  
+      <el-menu  
+        :default-active="activeIndex"  
+        class="flex items-center space-x-4"  
+        mode="horizontal"  
+        @select="handleSelect"  
+        :ellipsis="false"  
+      >  
+        <el-menu-item index="1"><router-link to="/">首页</router-link></el-menu-item>  
+        <el-menu-item index="2">课程</el-menu-item>  
+        <el-menu-item index="3">资源</el-menu-item>  
+        <el-menu-item index="4"><Login /></el-menu-item>  
+      </el-menu>  
+      <div class="md:hidden flex items-center">  
+        <el-icon class="menu-icon" @click="drawer = true"><Fold /></el-icon>  
+      </div>  
+    </div>  
+  </el-header>  
     <!-- 手机端菜单 -->
     <el-drawer v-model="drawer" direction="rtl" size="80%">
       <el-menu :default-active="activeIndex" @select="handleSelect">

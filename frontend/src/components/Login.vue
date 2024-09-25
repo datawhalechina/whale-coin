@@ -1,12 +1,12 @@
 <template>  
   <div>  
     <!-- Form -->  
-    <span v-if="!loginstate.logined || loginstate.name.length == 0">  
+    <span v-if="!loginstate.logined || loginstate.name.length == 0" class="flex items-center space-x-2">  
       <el-button text @click="loginstate.dialogFormVisible = true">登录</el-button>  
       <el-button text @click="registerFormVisible = true">注册</el-button>  
     </span>  
 
-    <span v-else>  
+    <span v-else class="flex items-center space-x-2">  
       <router-link to="/user" tag="el-link" type="primary">{{ loginstate.name }}</router-link>  
       <el-button text @click="logOut">登出</el-button>  
     </span>  
