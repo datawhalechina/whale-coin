@@ -5,20 +5,21 @@ const loginstate = useLoginStore();
 const userid = loginstate.id
 </script>
 
-<template>
-    <el-link v-if="loginstate.id<4" type="primary" href="/user/registers" >注册列表</el-link>
-    <br />
-    <el-link type="primary" href="/user/changepass" >修改密码</el-link>
-    <br />
-    <div v-if="loginstate.id<4"><el-link type="primary" href="/user/resetpass" >重置密码</el-link></div>
-    <el-link type="primary" href="/user/editprofile" >编辑个人信息</el-link>
-    <br />
-    <el-link type="primary" :href="'/user/profile/'+userid" >展示个人信息</el-link>
-    <br />
-    <el-link v-if="loginstate.id<4" type="primary" href="/user/all" >全部人员</el-link>
+<template>  
+    <div>  
+      <!-- 导航栏 -->  
+      <nav class="p-4 bg-gray-100">  
+        <router-link v-if="loginstate.id < 4" class="text-blue-600 mr-4" to="/user/registers">注册列表</router-link>  
+        <router-link class="text-blue-600 mr-4" to="/user/changepass">修改密码</router-link>  
+        <router-link v-if="loginstate.id < 4" class="text-blue-600 mr-4" to="/user/resetpass">重置密码</router-link>  
+        <router-link class="text-blue-600 mr-4" to="/user/editprofile">编辑个人信息</router-link>  
+        <router-link class="text-blue-600 mr-4" :to="'/user/profile/' + userid">展示个人信息</router-link>  
+        <router-link v-if="loginstate.id < 4" class="text-blue-600" to="/user/all">全部人员</router-link>  
+      </nav>  
 
-    
-</template>
-
-<style lang="scss" scoped>
-</style>
+    </div>  
+  </template>  
+  
+  <style scoped>  
+  /* 在此不使用 @apply */  
+  </style>

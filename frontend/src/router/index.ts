@@ -21,7 +21,15 @@ const routes: Array<RouteRecordRaw> = [
           name: "User",
           component: () => import("../views/user/Center.vue"),
         },
-        {
+        
+       
+    ]
+  },
+  {
+    path:'/',
+    component: () => import('@/components/UserLayout.vue'),
+    children:[
+      {
         path: "/user/registers",
           // 命名
           name: "Register",
@@ -57,12 +65,13 @@ const routes: Array<RouteRecordRaw> = [
           name: "All",
           component: () => import("../views/user/All.vue"),
         },
-       
+      
     ]
+    
   },
   {
     path:'/',
-    component: () => import('@/components/CoinLayout.vue'),
+    component: () => import('@/components/HomeLayout.vue'),
     children:[
       {
         path: "/coin/apply",
