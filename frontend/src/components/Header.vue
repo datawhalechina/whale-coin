@@ -1,5 +1,3 @@
-
-
 <template>
   <!-- <el-row>
     <el-col :lg="3" :md="6" :sm="9" :xs="12">
@@ -33,7 +31,7 @@
       <div class="header-container">
         <a href="/">
           <!-- <img src="/logo.png" class="logo" alt="你好" /> -->
-          <h3>鲸币</h3>
+          <h2 class="text-2xl text-bold text-sky-600">鲸币</h2>
         </a>
         <!-- 电脑端菜单 -->
         <el-menu
@@ -43,7 +41,7 @@
           @select="handleSelect"
           :ellipsis="false"
         >
-          <el-menu-item index="1">首页</el-menu-item>
+          <el-menu-item index="1"><router-link to="/">首页</router-link></el-menu-item>
           <el-menu-item index="2">课程</el-menu-item>
           <el-menu-item index="3">资源</el-menu-item>
           <el-menu-item index="4"><Login /></el-menu-item>
@@ -82,7 +80,6 @@
     </el-drawer>
   </el-container>
 </template>
-
 
 <script setup lang="ts">
 import { ref } from "vue";

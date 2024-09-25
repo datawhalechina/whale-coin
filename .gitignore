@@ -16,9 +16,7 @@ dist
 
 backend/**/__pycache__
 backend/.venv
-backend/alembic
-backend/alembic.ini
-backend/static
+
 
 # python
 __pycache__/
