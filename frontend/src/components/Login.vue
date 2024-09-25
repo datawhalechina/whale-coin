@@ -131,7 +131,7 @@ const formRegi = reactive<RuleForm>({
   phone: "",
 });
 
-const validatePass2 = (value: any, callback: any) => {
+const validatePass2 = (rule: any,value: any, callback: any) => {
   if (value === "") {
     callback(new Error("请再次输入密码"));
   } else if (value !== formRegi.password) {
