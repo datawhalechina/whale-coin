@@ -131,7 +131,7 @@ const formRegi = reactive<RuleForm>({
   phone: "",
 });
 
-const validatePass2 = (rule: any, value: any, callback: any) => {
+const validatePass2 = (value: any, callback: any) => {
   if (value === "") {
     callback(new Error("请再次输入密码"));
   } else if (value !== formRegi.password) {
@@ -144,7 +144,7 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
 const rules = reactive<FormRules<RuleForm>>({
   name: [
     { required: true, message: "请输入名字", trigger: "blur" },
-    { min: 2, max: 5, message: "长度为2到5个字符", trigger: "blur" },
+    { min: 2, max: 15, message: "长度为2到15个字符", trigger: "blur" },
   ],
   password: [
     { required: true, message: "请输入密码", trigger: "blur" },
@@ -166,7 +166,7 @@ const rules = reactive<FormRules<RuleForm>>({
 });
 
 const checkLogin = async () => {
-  const data = { name: form.name, password: form.password };
+  const data = { name: form.name, password: form.password, phone: form.phone };
   const res = await loginAPI(data);
   if (res.id > 0) {
     loginstate.id = res.id;
