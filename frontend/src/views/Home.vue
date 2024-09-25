@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import Main from '../components/Main.vue'
+import HomeNavbar from '../components/HomeNavbar.vue'
 document.title = "鲸币系统"
 </script>
 
 <template>
-  <Main />
+  <HomeNavbar />
 </template>
 
 <style lang="scss" scoped>
