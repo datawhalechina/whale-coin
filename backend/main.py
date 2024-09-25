@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.routers import users
 from app.routers import coin
 from app.routers import item
-
+from app.routers import update_data
 from app.config import settings
 from app.database import engine
 
@@ -32,6 +32,7 @@ app.add_middleware(
 app.include_router(users.router)
 app.include_router(coin.coin)
 app.include_router(item.item)
+app.include_router(update_data.router) 
 
 @app.get("/")
 def read_root():

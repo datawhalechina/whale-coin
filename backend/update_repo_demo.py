@@ -11,7 +11,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 import os
 from get_repo_oauth import save_info_to_json
 import json
-
+from app.config import settings
 
 # from insert_repo_user import hashed_password
 from passlib.context import CryptContext
@@ -54,7 +54,9 @@ def update_repo():
             repos = json.load(f)
     # 获取每个仓库的所有issues和PRs
     if repos != "Error: Unable to fetch repositories":
-        total_issues = get_all_issues_and_prs(username, "thorough-pytorch")
+        for repo in repos[1:2]:
+            repo_name = repo["name"]
+        total_issues = get_all_issues_and_prs(username, repo_name)
 
         for issue in total_issues:
             url = issue["html_url"]
@@ -71,7 +73,7 @@ def update_repo():
             if not issue_data:
                 # 如果数据表中没有该issue，则插入新数据
                 try:
-                    repo_name = "thorough-pytorch"
+                    # repo_name = "thorough-pytorch"
                     user_id = (
                         db.query(Users)
                         .filter_by(username=issue["user"]["login"])
@@ -126,17 +128,17 @@ def update_repo():
 if __name__ == "__main__":
 
     update_repo()
-    # scheduler = BackgroundScheduler()
-    # scheduler.add_job(
-    #     update_repo,
-    #     "cron",
-    #     hour=settings.UPDATAREPO_STARTTIMEHOUR,
-    #     minute=settings.UPDATAREPO_STARTTIMEMINUTE,
-    #     second=settings.UPDATAREPO_STARTTIMESECOND,
-    # )
-    # scheduler.start()
-    # try:
-    #     while True:
-    #         time.sleep(12)  # 模拟主程序正在运行的其他任务
-    # except (KeyboardInterrupt, SystemExit):
-    #     scheduler.shutdown()
+    scheduler = BackgroundScheduler()
+    scheduler.add_job(
+        update_repo,
+        "cron",
+        hour=settings.UPDATAREPO_STARTTIMEHOUR,
+        minute=settings.UPDATAREPO_STARTTIMEMINUTE,
+        second=settings.UPDATAREPO_STARTTIMESECOND,
+    )
+    scheduler.start()
+    try:
+        while True:
+            time.sleep(12)  # 模拟主程序正在运行的其他任务
+    except (KeyboardInterrupt, SystemExit):
+        scheduler.shutdown()
