@@ -15,7 +15,7 @@ from app.config import settings
 
 # from insert_repo_user import hashed_password
 from passlib.context import CryptContext
-
+import time
 
 # 初始化密码加密上下文，bcrypt
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -32,8 +32,20 @@ def save_list_to_json(list_data, file_path):
         data.sort()
         json.dump(data, f, ensure_ascii=False, indent=4)
 
+# 获取当前时间
+def get_current_time():
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-def update_repo_git():
+# 伪更新函数
+def update_repo():
+    time_now = get_current_time()
+    print(f'time now is {time_now}')
+    for i in range(10):
+        print(f"Updating repo {i}...")
+        time.sleep(1)
+    
+
+def update_repo2():
 
     username = "datawhalechina"
     Base.metadata.create_all(engine)
@@ -54,24 +66,24 @@ def update_repo_git():
             repos = json.load(f)
     # 获取每个仓库的所有issues和PRs
     if repos != "Error: Unable to fetch repositories":
-        for repo in repos[1:2]:
+        for repo in repos[5:15]:
             repo_name = repo["name"]
-            print(f'rp_name {repo_name}')
+            print(f"rp_name {repo_name}")
         total_issues = get_all_issues_and_prs(username, repo_name)
-
-        for issue in total_issues:
+        print("total_issues count", len(total_issues))
+        for issue in total_issues[:]:
             url = issue["html_url"]
-
             all_issues.add(url)
             print(f"{url}")
             issue_data = db.query(Apply).filter(Apply.url == url).first()
             if issue_data:
                 print(f"{issue_data.url} 已存在")
-            # 获取数据表Users的数量
-            user_count = db.query(Users).count()
-            phone_number = 15812340000 + user_count - 2
-            print(f"phone_number {phone_number}")
-            if not issue_data:
+
+            else:
+                # 获取数据表Users的数量
+                user_count = db.query(Users).count()
+                phone_number = 15812340000 + user_count - 2
+                print(f"phone_number {phone_number}")
                 # 如果数据表中没有该issue，则插入新数据
                 try:
                     # repo_name = "thorough-pytorch"
@@ -95,16 +107,14 @@ def update_repo_git():
                         db.add(new_user)
                         db.commit()
                         print(f"Inserted new user: {new_user.username}")
+                        user_id = new_user.id
+                    else:
 
-                    user_id = (
-                        db.query(Users)
-                        .filter_by(username=issue["user"]["login"])
-                        .first()
-                        .id
-                    )
+                        user_id = user_id.id
+                    print(f"user id {user_id}")
                     repo_apply = Apply(
                         user_id=user_id,
-                        repo="thorough-pytorch",
+                        repo=repo_name,
                         role="developer",
                         repo_owner_name=username,
                         user_name=issue["user"]["login"],
@@ -118,6 +128,8 @@ def update_repo_git():
                         ),
                     )
                     db.add(repo_apply)
+                    # db.commit()
+                    print(f"Inserted new url: {url}")
                 except Exception as e:
                     print(f"error: {e}")
                     pass
@@ -128,7 +140,7 @@ def update_repo_git():
 
 if __name__ == "__main__":
     print("update repo begin")
-    update_repo_git()
+    update_repo()
     # scheduler = BackgroundScheduler()
     # scheduler.add_job(
     #     update_repo,

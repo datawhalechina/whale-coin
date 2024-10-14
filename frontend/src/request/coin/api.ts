@@ -26,3 +26,20 @@ export const addEventAPI = (data: Coin.IAddEvent): Promise<any> =>
 
 export const fetchBillAPI = (): Promise<any> =>
     instance.get("/api/coin/fetch_bill");
+
+
+// 启动定时更新任务的API请求
+export const startScheduledUpdateAPI = (): Promise<any> => 
+    instance.get("/start-scheduled-update");
+
+// 检查定时更新任务是否运行的API请求
+export const isScheduledUpdateRunningAPI = (): Promise<any> => 
+    instance.get("/is-scheduled-update-running");
+
+// 停止定时更新任务的API请求
+export const stopScheduledUpdateAPI = (): Promise<any> => 
+    instance.get("/stop-scheduled-update");
+
+// 手动执行更新任务并写入数据库的API请求
+export const executeUpdateAPI = (): Promise<any> => 
+    instance.get("/execute-update");

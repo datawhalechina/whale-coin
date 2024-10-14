@@ -4,6 +4,8 @@ import { useLoginStore } from "../store";
 
 const loginstate = useLoginStore();
 const userId = loginstate.id;
+console.log('loginstate.iframeurl', loginstate.iframeurl)
+console.log('loginstate:', JSON.stringify(loginstate, null, 2));
 
 // 定义链接并根据 userId 进行过滤
 const links = computed(() =>
@@ -14,6 +16,7 @@ const links = computed(() =>
     { label: "鲸币账单", href: "/coin/bill" },
     { label: "鲸币商品", href: "/item/item" },
     { label: "鲸币订单", href: "/item/order" },
+    { label: "更新数据", href: "/coin/fetchrepo" , visible: userId < 4 },
   ].filter((link) => link.visible !== false)
 ); // 过滤不可见的链接
 </script>
