@@ -4,7 +4,7 @@ import { useLoginStore } from "../store";
 
 const loginstate = useLoginStore();
 const userId = loginstate.id;
-console.log('loginstate.iframeurl', loginstate.iframeurl)
+console.log('loginstate.iframeurl123', loginstate.iframeurl)
 console.log('loginstate:', JSON.stringify(loginstate, null, 2));
 
 // 定义链接并根据 userId 进行过滤
