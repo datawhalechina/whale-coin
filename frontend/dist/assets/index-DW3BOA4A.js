@@ -1,1 +1,0 @@
-import{aC as e}from"./vue-DRvwLzXx.js";const o=e("login",{state:()=>({id:0,logined:!1,dialogFormVisible:!1,name:"",atoken:"",rtoken:"",iframeurl:"http://localhost:8008"}),persist:{enabled:!0},getters:{},actions:{}});export{o as u};
