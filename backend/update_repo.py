@@ -37,7 +37,7 @@ def get_current_time():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # 伪更新函数
-def update_repo():
+def update_repo2():
     time_now = get_current_time()
     print(f'time now is {time_now}')
     
@@ -55,7 +55,7 @@ def update_repo():
     return updated_data
 
 
-def update_repo2():
+def update_repo():
 
     username = "datawhalechina"
     Base.metadata.create_all(engine)
@@ -76,7 +76,7 @@ def update_repo2():
             repos = json.load(f)
     # 获取每个仓库的所有issues和PRs
     if repos != "Error: Unable to fetch repositories":
-        for repo in repos[5:15]:
+        for repo in repos[5:11]:
             repo_name = repo["name"]
             print(f"rp_name {repo_name}")
         total_issues = get_all_issues_and_prs(username, repo_name)

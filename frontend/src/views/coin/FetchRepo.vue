@@ -12,12 +12,22 @@ import { fetchAllSuperviseAPI } from "../../request/coin/api";
 import { reactive } from "vue";
 import { ElTable } from "element-plus";
 
+const intervalId = ref<number | null>(null);
+
+
+// 用于存储定时器的id
 document.title = "数据更新";
 
 let allData: any = reactive([]);
 const doFetch = async () => {
-  let rtn = await fetchAllSuperviseAPI();
-  allData.push(...rtn);
+  try {
+    const rtn = await fetchAllSuperviseAPI();
+    allData.splice(0,allData.length,...rtn);
+    // Clears and fills allData
+  } catch (error) {
+    const err = error as any;
+    ElMessage.error("数据获取失败: " + (err.response?.message || err.message));
+  }
 };
 onMounted(doFetch);
 
@@ -46,7 +56,7 @@ const checkScheduledStatus = async () => {
   } catch (error) {
     const err = error as any;
     ElMessage.error(
-      "无法检查定时任务状态: " + (err.response?.data?.message || err.message)
+      "无法检查定时任务状态: " + (err.response?.message || err.message)
     );
     isScheduledRunning.value = false;
   }
@@ -61,11 +71,18 @@ const startScheduledUpdate = async () => {
     const response = await startScheduledUpdateAPI();
 
     if (response.status === "success") {
-      const updateResults = response.data;
+      const updateResults = response.message;
 
-      manualUpdateMessage.value = updateResults.join("\n");
+      manualUpdateMessage.value = updateResults;
 
+      let updateCount =0
+      intervalId.value = setInterval(async () => {
+        updateCount ++
+        await doFetch(); // 定时更新前台的数据
+        console.log(`更新次数: ${updateCount}`); 
 
+      }, 15000); // 15000毫
+ 
       
     } else {
       ElMessage.error("定时更新任务 数据拉取错误: " + response.message);
@@ -73,44 +90,30 @@ const startScheduledUpdate = async () => {
   } catch (error) {
     const err = error as any;
     ElMessage.error(
-      "启动定时更新任务失败: " + (err.response?.data?.message || err.message)
+      "启动定时更新任务失败: " + (err.response?.message || err.message)
     );
   }
 };
 
-const fetchLatestUpdates = async () => {
-  try {
-    const response = await fetch("http://localhost:8008/get-latest-updates");
-    const res = await response.json();
-    console.log("res is", res);
 
-    if (res && res.status === "success") {
-      console.log("最新更新的数据：", res.data);
-      const updateResults = res.data;
-
-      manualUpdateMessage.value = updateResults.join("\n");
-      // 更新前端显示的数据
-    } else {
-      console.error("获取最新数据失败：", res.message);
-    }
-  } catch (error) {
-    console.error("请求错误：", error);
-  }
-};
-
-// 每隔15秒请求一次后端以获取最新数据
-setInterval(fetchLatestUpdates, 15000);
+setInterval(doFetch, 1*60*1000+15000);
 
 // 停止定时拉取任务
 const stopScheduledUpdate = async () => {
   try {
     await stopScheduledUpdateAPI();
+
+    // 清除定时器
+    if (intervalId.value) {
+      clearInterval(intervalId.value);
+      intervalId.value = null;
+    }
     ElMessage.success("定时更新任务已停止");
     isScheduledRunning.value = false;
   } catch (error) {
     const err = error as any;
     ElMessage.error(
-      "停止定时更新任务失败: " + (err.response?.data?.message || err.message)
+      "停止定时更新任务失败: " + (err.response?.message || err.message)
     );
   }
 };
@@ -125,9 +128,10 @@ const executeUpdate = async () => {
     const response = await executeUpdateAPI();
 
     if (response.status === "success") {
-      const updateResults = response.data;
-      manualUpdateMessage.value =
-        "本次手动更新完成，更新了" + updateResults.join("\n");
+      const updateResults = response.message;
+      manualUpdateMessage.value = updateResults;
+      await doFetch();
+      
     } else {
       manualUpdateMessage.value = "更新失败";
     }
@@ -135,7 +139,7 @@ const executeUpdate = async () => {
   } catch (error) {
     const err = error as any;
     ElMessage.error(
-      "手动更新任务失败: " + (err.response?.data?.message || err.message)
+      "手动更新任务失败: " + (err.response?.message || err.message)
     );
     manualUpdateMessage.value = "手动更新任务失败";
   } finally {
