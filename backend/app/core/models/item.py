@@ -14,7 +14,7 @@ class Item(Base):
     img_path=Column(VARCHAR(1000))
 
 class Order(Base):
-    __tablename__ = 'order'
+    __tablename__ = 'total_order'
 
     id=Column(Integer,primary_key=True,autoincrement=True)
     user_id = Column(Integer)
