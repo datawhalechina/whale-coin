@@ -40,10 +40,20 @@ def get_current_time():
 def update_repo():
     time_now = get_current_time()
     print(f'time now is {time_now}')
+    
+    # 数据列表，模拟更新结果
+    updated_data = []
+
     for i in range(10):
         print(f"Updating repo {i}...")
         time.sleep(1)
+
+        # 添加每次更新的结果到列表中
+        updated_data.append(f"Update {i + 1} completed at {get_current_time()}")
     
+    # 返回更新的数据
+    return updated_data
+
 
 def update_repo2():
 

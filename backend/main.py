@@ -2,7 +2,7 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-
+from fastapi import  BackgroundTasks
 from app.routers import users
 from app.routers import coin
 from app.routers import item
@@ -50,7 +50,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from typing import List, Dict
 import requests
 import threading
-
+import asyncio
 
 
 # 初始化APScheduler
@@ -58,22 +58,98 @@ scheduler = BackgroundScheduler()
 scheduler.start()
 
 # 任务函数，用于定时抓取GitHub issues
-from update_repo import update_repo
-
+# from update_repo import update_repo
+from update_repo import get_current_time
+import time
 # 为定时任务分配一个唯一的ID
 job_id = "update_repo_job"
+
+
+
+# 用于存储更新数据的全局变量
+latest_updates = []
+update_lock = threading.Lock()  # 确保线程安全
+
+def update_repo():
+    global latest_updates
+    time_now = get_current_time()
+    print(f'time now is {time_now}')
+    
+    updated_data = []
+
+    for i in range(10):
+        print(f"Updating repo {i}...")
+        time.sleep(1)
+        updated_data.append(f"Update {i + 1} completed at {get_current_time()}")
+
+    # 使用锁来确保更新操作的线程安全
+    with update_lock:
+        latest_updates = updated_data
+
+    return updated_data
+
+@app.get("/get-latest-updates")
+def get_latest_updates():
+    global latest_updates
+    # 使用锁来确保读取操作的线程安全
+    with update_lock:
+        return {
+            "status": "success",
+            "data": latest_updates
+        }
 
 @app.get("/start-scheduled-update")
 async def start_scheduled_update():
     """
-    启动定时任务，定期更新GitHub仓库的issues
+    启动定时任务，定期更新 GitHub 仓库的 issues。
     """
     job = scheduler.get_job(job_id)
+    
     if job is None:
-        scheduler.add_job(update_repo, 'interval', hours=0,minutes=0,seconds=15, id=job_id)
-        return {"message": "Scheduled update started."}
+        # 立即运行任务并获取结果（假设 update_repo 返回更新数据）
+        updated_data = update_repo()  
+        
+        # 添加定时任务
+        scheduler.add_job(update_repo, 'interval', hours=0, minutes=0, seconds=15, id=job_id)
+        
+        # 直接返回字典
+        return {
+            "status": "success",
+            "message": "Scheduled update started.",
+            "data": updated_data
+        }
     else:
-        return {"message": "Scheduled update is already running."}
+        return {
+            "status": "error",
+            "message": "Scheduled update is already running."
+        }
+
+
+
+async def scheduled_update():
+    while True:
+        await asyncio.sleep(15)  # 每隔15秒执行一次
+        # 执行更新操作
+        updated_data = update_repo()  # 更新数据
+
+@app.get("/start-scheduled-update2")
+async def start_scheduled_update(background_tasks: BackgroundTasks):
+    job = scheduler.get_job(job_id)
+
+    if job is None:
+        background_tasks.add_task(scheduled_update)  # 让后台任务开始运行
+        scheduler.add_job(update_repo, 'interval', seconds=15, id=job_id)  # 在后台添加定时任务
+
+        return {
+            "status": "success",
+            "message": "Scheduled update started."
+        }
+    else:
+        return {
+            "status": "error",
+            "message": "Scheduled update is already running."
+        }
+
 
 @app.get("/is-scheduled-update-running")
 async def is_scheduled_update_running():
@@ -107,11 +183,12 @@ async def execute_update():
     手动执行数据更新任务，将数据写入数据库，并通知前端刷新
     """
     try:
-        update_repo()  # 调用直接执行数据获取和写入
+
+        data = update_repo()
         print(f'execute update repo job {job_id}')
-        return {"message": "Data update executed successfully. Please refresh the page to see new data."}
+        return {"status":"success","message": "Data update executed successfully. Please refresh the page to see new data.", "data": data}
     except Exception as e:
-        return {"message": f"An error occurred while executing the update: {str(e)}"}
+        return {"status":"failed","message": f"An error occurred while executing the update: {str(e)}"}
 
 if __name__ == '__main__':
     uvicorn.run("main:app", host=settings.HOST, port=settings.PORT,reload=True)
