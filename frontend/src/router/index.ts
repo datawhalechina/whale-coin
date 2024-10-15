@@ -109,6 +109,12 @@ const routes: Array<RouteRecordRaw> = [
         name: "Order",
         component: () => import("../views/item/Order.vue"),
       },
+      {
+        path: "/coin/fetchrepo",
+        // 命名
+        name: "Order",
+        component: () => import("../views/coin/FetchRepo.vue"),
+      },
     ]
     
   }
