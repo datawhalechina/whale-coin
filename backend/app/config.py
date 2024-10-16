@@ -2,6 +2,8 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 from functools import lru_cache
 import os
 from typing import ClassVar
+
+
 class Settings(BaseSettings):
     SECRET_KEY: str
     ALGORITHM: str
@@ -14,14 +16,20 @@ class Settings(BaseSettings):
     UPDATAREPO_STARTTIMEMINUTE: int
     UPDATAREPO_STARTTIMESECOND: int
 
-    # 动态获取环境变量 ENV_FILE，默认为 .env
-    # 标记 env_file 为 ClassVar，指定为类属性
-    env_file: ClassVar[str] = os.getenv(".env.production", ".env")
+    # 确定使用哪个 .env 文件，若 .env.production 存在则优先使用
+    if os.path.exists(".env.production"):
+        env_file: ClassVar[str] = ".env.production"
+    else:
+        env_file: ClassVar[str] = ".env"
 
-    model_config = SettingsConfigDict(env_file=env_file, _env_file_encoding='utf-8', extra='allow')
+    model_config = SettingsConfigDict(
+        env_file=env_file, _env_file_encoding="utf-8", extra="allow"
+    )
+
 
 @lru_cache
 def get_settings():
     return Settings()
+
 
 settings = get_settings()
