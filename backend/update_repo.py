@@ -32,15 +32,17 @@ def save_list_to_json(list_data, file_path):
         data.sort()
         json.dump(data, f, ensure_ascii=False, indent=4)
 
+
 # 获取当前时间
 def get_current_time():
     return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
+
 # 伪更新函数
 def update_repo2():
     time_now = get_current_time()
-    print(f'time now is {time_now}')
-    
+    print(f"time now is {time_now}")
+
     # 数据列表，模拟更新结果
     updated_data = []
 
@@ -50,7 +52,7 @@ def update_repo2():
 
         # 添加每次更新的结果到列表中
         updated_data.append(f"Update {i + 1} completed at {get_current_time()}")
-    
+
     # 返回更新的数据
     return updated_data
 
@@ -76,10 +78,10 @@ def update_repo():
             repos = json.load(f)
     # 获取每个仓库的所有issues和PRs
     if repos != "Error: Unable to fetch repositories":
-        
-        for repo in repos[5:11]:
+        print(f"lth repos {len(repos)}")
+        for index, repo in enumerate(repos[:]):
             repo_name = repo["name"]
-            print(f"rp_name {repo_name}")
+            print(f"{index} repo: {repo_name}")
             total_issues = get_all_issues_and_prs(username, repo_name)
             print("total_issues count", len(total_issues))
             for issue in total_issues[:]:
@@ -145,14 +147,12 @@ def update_repo():
                         print(f"error: {e}")
                         pass
 
-
             db.commit()
     save_list_to_json(all_issues, "./github_data/all_issues.json")
     db.close()
 
 
-
-
+import time
 
 
 if __name__ == "__main__":
