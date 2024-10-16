@@ -1,12 +1,12 @@
 <script setup lang="ts">
   // 从环境中获取 VITE_API_URL 的值
-  const apiUrl = import.meta.env.VITE_API_URL;
+  // const apiUrl = import.meta.env.VITE_API_URL;
 </script>
 
 <template>
   <div class="centered-text">
-    鲸币 @ 20242024
-    <div class="api-url">API URL: {{ apiUrl }}</div> <!-- 显示 API URL -->
+    鲸币 @ 2024
+    <!-- <div class="api-url">API URL: {{ apiUrl }}</div>  -->
   </div>
 </template>
 
