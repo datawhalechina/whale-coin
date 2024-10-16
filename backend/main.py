@@ -1,4 +1,5 @@
 import uvicorn
+import logging
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -9,7 +10,7 @@ from app.routers import item
 from app.routers import update_data
 from app.config import settings
 from app.database import engine
-
+import datetime
 app = FastAPI()
 
 origins = [
@@ -58,9 +59,23 @@ from update_repo import update_repo
 from update_repo import update_repo_test
 import time
 
+
+
+# 初始化APScheduler
+scheduler = BackgroundScheduler()
+
+# 配置日志记录到文件
+logging.basicConfig(
+    filename='log.txt',
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+)
+
+# 启动调度器
+scheduler.start()
+
 # 为定时任务分配一个唯一的ID
 job_id = "update_repo_job"
-
 
 @app.get("/start-scheduled-update")
 async def start_scheduled_update():
@@ -70,59 +85,69 @@ async def start_scheduled_update():
     job = scheduler.get_job(job_id)
 
     if job is None:
-        scheduler.add_job(
+        new_job = scheduler.add_job(
             update_repo, "interval", hours=12, minutes=0, seconds=0, id=job_id
         )
-        return {"status": "success", "message": "Scheduled update started."}
+        next_run_time = new_job.next_run_time.strftime('%Y-%m-%d %H:%M:%S') if new_job.next_run_time else "Unknown"
+        logging.info(f"Scheduled update started. Next run time: {next_run_time}.")
+        return {"status": "success", "message": f"Scheduled update started. Next run time: {next_run_time}."}
     else:
-        return {"status": "error", "message": "Scheduled update is already running."}
+        next_run_time = job.next_run_time.strftime('%Y-%m-%d %H:%M:%S') if job.next_run_time else "Unknown"
+        logging.warning(f"Scheduled update is already running. Next run time: {next_run_time}.")
+        return {"status": "error", "message": f"Scheduled update is already running. Next run time: {next_run_time}."}
+
+
 
 
 @app.get("/is-scheduled-update-running")
 async def is_scheduled_update_running():
     """
-    检查是否有定时拉取任务正在运行
+    检查是否有定时拉取任务正在运行，并返回下次运行时间。
     """
     job = scheduler.get_job(job_id)
     if job:
-        return {"is_running": True}
+        next_run_time = job.next_run_time.strftime('%Y-%m-%d %H:%M:%S') if job.next_run_time else "Unknown"
+        logging.info(f"Checked scheduled update running status: True. Next run time: {next_run_time}.")
+        return {"is_running": True, "next_run_time": next_run_time}
     else:
-        return {"is_running": False}
+        logging.info("Checked scheduled update running status: False.")
+        return {"is_running": False, "next_run_time": None}
 
 
 @app.get("/stop-scheduled-update")
 async def stop_scheduled_update():
     """
-    停止当前运行的定时拉取任务
+    停止当前运行的定时拉取任务，并显示下次运行时间（如适用）。
     """
     job = scheduler.get_job(job_id)
     if job is not None:
+        next_run_time = job.next_run_time.strftime('%Y-%m-%d %H:%M:%S') if job.next_run_time else "Unknown"
         scheduler.remove_job(job_id)
-        print(f"stop update repo job {job_id}")
-        return {"message": "Scheduled update stopped."}
+        logging.info(f"Stopped scheduled update: {job_id}. Next run time was: {next_run_time}.")
+        return {"message": f"Scheduled update stopped. Next run time was: {next_run_time}."}
     else:
+        logging.warning("No update task is currently running.")
         return {"message": "No update task is currently running."}
 
 
 @app.get("/execute-update")
 async def execute_update():
     """
-    手动执行数据更新任务，将数据写入数据库，并通知前端刷新
+    手动执行数据更新任务，将数据写入数据库，并通知前端刷新。记录当前时间。
     """
     try:
-
         update_repo()
-        print(f"execute update repo job {job_id}")
+        current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        logging.info(f"Executed manual update successfully at {current_time}.")
         return {
             "status": "success",
-            "message": "Data update executed successfully.",
+            "message": f"Data update executed successfully at {current_time}.",
         }
     except Exception as e:
+        logging.error(f"An error occurred while executing the update: {str(e)}")
         return {
             "status": "failed",
             "message": f"An error occurred while executing the update: {str(e)}",
         }
-
-
 if __name__ == "__main__":
     uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True)

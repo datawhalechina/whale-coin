@@ -96,7 +96,7 @@ setInterval(doFetch, 1 * 60 * 1000 + 15000);
 // 停止定时拉取任务
 const stopScheduledUpdate = async () => {
   try {
-    await stopScheduledUpdateAPI();
+    const response= await stopScheduledUpdateAPI();
 
     // 清除定时器
     if (intervalId.value) {
@@ -104,6 +104,9 @@ const stopScheduledUpdate = async () => {
       intervalId.value = null;
     }
     ElMessage.success("定时更新任务已停止");
+    const updateResults = response.message;
+
+   manualUpdateMessage.value = updateResults;
     isScheduledRunning.value = false;
   } catch (error) {
     const err = error as any;
@@ -173,6 +176,13 @@ const executeUpdate = async () => {
         class="w-48"
       >
         手动拉取
+      </el-button>
+
+      <el-button
+        type="info"
+        @click="checkScheduledStatus"
+        class="w-48">
+        检查定时任务状态
       </el-button>
     </div>
 
