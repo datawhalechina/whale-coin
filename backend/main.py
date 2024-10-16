@@ -75,7 +75,7 @@ async def start_scheduled_update():
 
         # 添加定时任务
         scheduler.add_job(
-            update_repo, "interval", hours=0, minutes=0, seconds=15, id=job_id
+            update_repo, "interval", hours=12, minutes=0, seconds=0, id=job_id
         )
 
         # 直接返回字典

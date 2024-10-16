@@ -76,76 +76,83 @@ def update_repo():
             repos = json.load(f)
     # 获取每个仓库的所有issues和PRs
     if repos != "Error: Unable to fetch repositories":
+        
         for repo in repos[5:11]:
             repo_name = repo["name"]
             print(f"rp_name {repo_name}")
-        total_issues = get_all_issues_and_prs(username, repo_name)
-        print("total_issues count", len(total_issues))
-        for issue in total_issues[:]:
-            url = issue["html_url"]
-            all_issues.add(url)
-            print(f"{url}")
-            issue_data = db.query(Apply).filter(Apply.url == url).first()
-            if issue_data:
-                print(f"{issue_data.url} 已存在")
+            total_issues = get_all_issues_and_prs(username, repo_name)
+            print("total_issues count", len(total_issues))
+            for issue in total_issues[:]:
+                url = issue["html_url"]
+                all_issues.add(url)
+                print(f"{url}")
+                issue_data = db.query(Apply).filter(Apply.url == url).first()
+                if issue_data:
+                    print(f"{issue_data.url} 已存在")
 
-            else:
-                # 获取数据表Users的数量
-                user_count = db.query(Users).count()
-                phone_number = 15812340000 + user_count - 2
-                print(f"phone_number {phone_number}")
-                # 如果数据表中没有该issue，则插入新数据
-                try:
-                    # repo_name = "thorough-pytorch"
-                    user_id = (
-                        db.query(Users)
-                        .filter_by(username=issue["user"]["login"])
-                        .first()
-                    )
-                    if not user_id:
-                        new_user = Users(
-                            username=issue["user"]["login"],
-                            phone=f"{phone_number}",
-                            github=issue["user"]["html_url"],
-                            role="developer",
-                            email=f'{issue["user"]["login"]}@example.com',
-                            password=hashed_password,
-                            desc=f"我为项目{repo_name}贡献了一个issue",
-                            register_time=datetime.now(),
-                            last_login_time=datetime.now(),
+                else:
+                    # 获取数据表Users的数量
+                    user_count = db.query(Users).count()
+                    phone_number = 15812340000 + user_count - 2
+                    print(f"phone_number {phone_number}")
+                    # 如果数据表中没有该issue，则插入新数据
+                    try:
+                        # repo_name = "thorough-pytorch"
+                        user_id = (
+                            db.query(Users)
+                            .filter_by(username=issue["user"]["login"])
+                            .first()
                         )
-                        db.add(new_user)
-                        db.commit()
-                        print(f"Inserted new user: {new_user.username}")
-                        user_id = new_user.id
-                    else:
+                        if not user_id:
+                            new_user = Users(
+                                username=issue["user"]["login"],
+                                phone=f"{phone_number}",
+                                github=issue["user"]["html_url"],
+                                role="developer",
+                                email=f'{issue["user"]["login"]}@example.com',
+                                password=hashed_password,
+                                desc=f"我为项目{repo_name}贡献了一个issue",
+                                register_time=datetime.now(),
+                                last_login_time=datetime.now(),
+                            )
+                            db.add(new_user)
+                            db.commit()
+                            print(f"Inserted new user: {new_user.username}")
+                            user_id = new_user.id
+                        else:
 
-                        user_id = user_id.id
-                    print(f"user id {user_id}")
-                    repo_apply = Apply(
-                        user_id=user_id,
-                        repo=repo_name,
-                        role="developer",
-                        repo_owner_name=username,
-                        user_name=issue["user"]["login"],
-                        pid=issue["number"],
-                        title=issue["title"],
-                        url=url,
-                        content=issue["body"],
-                        state=issue["state"],
-                        record_time=datetime.strptime(
-                            issue["created_at"][:-1], "%Y-%m-%dT%H:%M:%S"
-                        ),
-                    )
-                    db.add(repo_apply)
-                    # db.commit()
-                    print(f"Inserted new url: {url}")
-                except Exception as e:
-                    print(f"error: {e}")
-                    pass
+                            user_id = user_id.id
+                        print(f"user id {user_id}")
+                        repo_apply = Apply(
+                            user_id=user_id,
+                            repo=repo_name,
+                            role="developer",
+                            repo_owner_name=username,
+                            user_name=issue["user"]["login"],
+                            pid=issue["number"],
+                            title=issue["title"],
+                            url=url,
+                            content=issue["body"],
+                            state=issue["state"],
+                            record_time=datetime.strptime(
+                                issue["created_at"][:-1], "%Y-%m-%dT%H:%M:%S"
+                            ),
+                        )
+                        db.add(repo_apply)
+                        # db.commit()
+                        print(f"Inserted new url: {url}")
+                    except Exception as e:
+                        print(f"error: {e}")
+                        pass
 
-        db.commit()
+
+            db.commit()
     save_list_to_json(all_issues, "./github_data/all_issues.json")
+    db.close()
+
+
+
+
 
 
 if __name__ == "__main__":
