@@ -79,7 +79,7 @@ const startScheduledUpdate = async () => {
         updateCount++;
         await doFetch(); // 定时更新前台的数据
         console.log(`更新次数: ${updateCount}`);
-      }, 15000); // 15000毫
+      }, 1*60*60*1000); // 
     } else {
       ElMessage.error("定时更新任务 数据拉取错误: " + response.message);
     }
@@ -175,6 +175,13 @@ const executeUpdate = async () => {
         手动拉取
       </el-button>
     </div>
+
+    <!-- 检测定时任务是否在运行 -->
+    <p v-if="isScheduledRunning" class="text-green-500 mt-2">
+      定时任务正在运行
+    </p>
+    <p v-else class="text-red-500 mt-2">定时任务未运行</p>
+
 
     <!-- 状态信息文本 -->
     <p v-if="manualUpdateMessage" class="text-gray-500 mt-2">

@@ -55,7 +55,7 @@ scheduler.start()
 
 # 任务函数，用于定时抓取GitHub issues
 from update_repo import update_repo
-from update_repo import get_current_time
+from update_repo import update_repo_test
 import time
 
 # 为定时任务分配一个唯一的ID
@@ -70,15 +70,9 @@ async def start_scheduled_update():
     job = scheduler.get_job(job_id)
 
     if job is None:
-        # 立即运行任务并获取结果（假设 update_repo 返回更新数据）
-        update_repo()
-
-        # 添加定时任务
         scheduler.add_job(
             update_repo, "interval", hours=12, minutes=0, seconds=0, id=job_id
         )
-
-        # 直接返回字典
         return {"status": "success", "message": "Scheduled update started."}
     else:
         return {"status": "error", "message": "Scheduled update is already running."}
@@ -121,7 +115,7 @@ async def execute_update():
         print(f"execute update repo job {job_id}")
         return {
             "status": "success",
-            "message": "Data update executed successfully. Please refresh the page to see new data.",
+            "message": "Data update executed successfully.",
         }
     except Exception as e:
         return {

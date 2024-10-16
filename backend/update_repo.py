@@ -39,7 +39,7 @@ def get_current_time():
 
 
 # 伪更新函数
-def update_repo2():
+def update_repo_test():
     time_now = get_current_time()
     print(f"time now is {time_now}")
 
@@ -80,6 +80,7 @@ def update_repo():
     if repos != "Error: Unable to fetch repositories":
         print(f"lth repos {len(repos)}")
         for index, repo in enumerate(repos[:]):
+
             repo_name = repo["name"]
             print(f"{index} repo: {repo_name}")
             total_issues = get_all_issues_and_prs(username, repo_name)
@@ -148,6 +149,7 @@ def update_repo():
                         pass
 
             db.commit()
+            time.sleep(5)
     save_list_to_json(all_issues, "./github_data/all_issues.json")
     db.close()
 
