@@ -14,7 +14,6 @@ import { ElTable } from "element-plus";
 
 const intervalId = ref<number | null>(null);
 
-
 // 用于存储定时器的id
 document.title = "数据更新";
 
@@ -22,7 +21,7 @@ let allData: any = reactive([]);
 const doFetch = async () => {
   try {
     const rtn = await fetchAllSuperviseAPI();
-    allData.splice(0,allData.length,...rtn);
+    allData.splice(0, allData.length, ...rtn);
     // Clears and fills allData
   } catch (error) {
     const err = error as any;
@@ -75,15 +74,12 @@ const startScheduledUpdate = async () => {
 
       manualUpdateMessage.value = updateResults;
 
-      let updateCount =0
+      let updateCount = 0;
       intervalId.value = setInterval(async () => {
-        updateCount ++
+        updateCount++;
         await doFetch(); // 定时更新前台的数据
-        console.log(`更新次数: ${updateCount}`); 
-
+        console.log(`更新次数: ${updateCount}`);
       }, 15000); // 15000毫
- 
-      
     } else {
       ElMessage.error("定时更新任务 数据拉取错误: " + response.message);
     }
@@ -95,8 +91,7 @@ const startScheduledUpdate = async () => {
   }
 };
 
-
-setInterval(doFetch, 1*60*1000+15000);
+setInterval(doFetch, 1 * 60 * 1000 + 15000);
 
 // 停止定时拉取任务
 const stopScheduledUpdate = async () => {
@@ -126,16 +121,15 @@ const executeUpdate = async () => {
 
     // 调用后端更新api
     const response = await executeUpdateAPI();
+    const updateResults = response.message;
+    manualUpdateMessage.value = updateResults;
 
     if (response.status === "success") {
-      const updateResults = response.message;
-      manualUpdateMessage.value = updateResults;
       await doFetch();
-      
+      ElMessage.success("本次手动更新完成");
     } else {
-      manualUpdateMessage.value = "更新失败";
+      ElMessage.success("更新未成功");
     }
-    ElMessage.success("本次手动更新完成");
   } catch (error) {
     const err = error as any;
     ElMessage.error(

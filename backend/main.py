@@ -13,7 +13,8 @@ from app.database import engine
 app = FastAPI()
 
 origins = [
-    "http://christarter.com",
+    "http://christarter.com:8008",
+    "http://localhost:5173",
 ]
 
 # 添加 CORS 中间件
