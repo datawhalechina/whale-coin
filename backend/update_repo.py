@@ -92,7 +92,7 @@ def update_repo():
 
             repo_name = repo["name"]
             logging.info(f"{index} repo: {repo_name}")
-            total_issues = get_all_issues_and_prs(username, repo_name)
+            total_issues = get_all_issues_and_prs(username, repo_name,page=1)
             logging.info("total_issues count: %d", len(total_issues))
             for issue in total_issues[:]:
                 url = issue["html_url"]

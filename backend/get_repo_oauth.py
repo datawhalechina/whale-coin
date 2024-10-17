@@ -98,38 +98,41 @@ def save_info_to_json(info_dict, filename):
 
 
 # Helper function to get all pages of results
-def get_all_pages(url):
+def get_all_pages(url,page=1):
     headers = {"Authorization": f"token {token}"}
     items = []
-    index = 0
-    while url and index < 4:
+    page = 0
+    while url and page < page:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             items.extend(response.json())
             # Check if there is a 'next' page
             url = response.links.get("next", {}).get("url")
-            index +=1
+            page +=1
         else:
             break
     return items
 
 
-def get_all_issues_and_prs(repo_owner, repo_name):
+
+
+
+def get_all_issues_and_prs(repo_owner, repo_name,page=1):
     base_url = f"https://api.github.com/repos/{repo_owner}/{repo_name}"
 
     # Get all issues
     issues_url = f"{base_url}/issues"
-    issues = get_all_pages(issues_url)
+    issues = get_all_pages(issues_url,page)
 
     issues_url = f"{base_url}/issues?state=closed"
-    issues_closed = get_all_pages(issues_url)
+    issues_closed = get_all_pages(issues_url,page)
 
     # Get all pull requests
     prs_url = f"{base_url}/pulls"
-    prs = get_all_pages(prs_url)
+    prs = get_all_pages(prs_url,page)
 
     prs_url = f"{base_url}/pulls?state=closed"
-    prs__closed = get_all_pages(prs_url)
+    prs__closed = get_all_pages(prs_url,page)
 
     merge_issues = issues + issues_closed + prs + prs__closed
     return merge_issues
