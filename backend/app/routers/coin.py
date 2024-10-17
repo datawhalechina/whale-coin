@@ -87,7 +87,7 @@ async def fetch_supervise(
 async def fetch_all_supervise(
     user: UserBase = Depends(check_jwt_token), db: Session = Depends(get_db)
 ):
-    supervise_items = db.query(Apply).order_by(Apply.id.desc()).limit(50).all()
+    supervise_items = db.query(Apply).order_by(Apply.record_time.desc()).limit(50).all()
     all_supervise = []
     for row in supervise_items:
         temp = {
