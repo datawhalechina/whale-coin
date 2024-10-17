@@ -6,7 +6,7 @@ from app.core.models.users import Users
 from datetime import datetime
 from get_repo_oauth import get_all_repos, get_all_issues_and_prs
 from apscheduler.schedulers.background import BackgroundScheduler
-
+import logging
 # from app.config import settings
 import os
 from get_repo_oauth import save_info_to_json
@@ -16,6 +16,14 @@ from app.config import settings
 # from insert_repo_user import hashed_password
 from passlib.context import CryptContext
 import time
+
+
+
+
+import asyncio
+from sqlalchemy.ext.asyncio import AsyncSession
+import aiofiles
+
 
 # 初始化密码加密上下文，bcrypt
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
@@ -58,7 +66,6 @@ def update_repo_test():
 
 
 def update_repo():
-
     username = "datawhalechina"
     Base.metadata.create_all(engine)
     db = SessionLocal()
@@ -76,31 +83,31 @@ def update_repo():
     else:
         with open("./github_data/all_repos.json", "r", encoding="utf-8") as f:
             repos = json.load(f)
+
     # 获取每个仓库的所有issues和PRs
+    #TODO: 停止更新 需要改为异步数据库插入操作
     if repos != "Error: Unable to fetch repositories":
-        print(f"lth repos {len(repos)}")
+        logging.info(f"lth repos {len(repos)}")
         for index, repo in enumerate(repos[:]):
 
             repo_name = repo["name"]
-            print(f"{index} repo: {repo_name}")
+            logging.info(f"{index} repo: {repo_name}")
             total_issues = get_all_issues_and_prs(username, repo_name)
-            print("total_issues count", len(total_issues))
+            logging.info("total_issues count: %d", len(total_issues))
             for issue in total_issues[:]:
                 url = issue["html_url"]
                 all_issues.add(url)
-                print(f"{url}")
+                logging.info(f"{url}")
                 issue_data = db.query(Apply).filter(Apply.url == url).first()
                 if issue_data:
-                    print(f"{issue_data.url} 已存在")
-
+                    logging.info(f"已存在")
                 else:
                     # 获取数据表Users的数量
                     user_count = db.query(Users).count()
                     phone_number = 15812340000 + user_count - 2
-                    print(f"phone_number {phone_number}")
+                    logging.info(f"phone_number {phone_number}")
                     # 如果数据表中没有该issue，则插入新数据
                     try:
-                        # repo_name = "thorough-pytorch"
                         user_id = (
                             db.query(Users)
                             .filter_by(username=issue["user"]["login"])
@@ -120,12 +127,11 @@ def update_repo():
                             )
                             db.add(new_user)
                             db.commit()
-                            print(f"Inserted new user: {new_user.username}")
+                            logging.info(f"Inserted new user: {new_user.username}")
                             user_id = new_user.id
                         else:
-
                             user_id = user_id.id
-                        print(f"user id {user_id}")
+                        logging.info(f"user id {user_id}")
                         repo_apply = Apply(
                             user_id=user_id,
                             repo=repo_name,
@@ -143,9 +149,9 @@ def update_repo():
                         )
                         db.add(repo_apply)
                         # db.commit()
-                        print(f"Inserted new url: {url}")
+                        logging.info(f"Inserted new url: {url}")
                     except Exception as e:
-                        print(f"error: {e}")
+                        logging.error(f"error: {e}")
                         pass
 
             db.commit()
@@ -154,7 +160,100 @@ def update_repo():
     db.close()
 
 
-import time
+async def update_repo1():
+    username = "datawhalechina"
+    # 假设你使用的是异步的数据库引擎
+    async with AsyncSession(engine) as session:
+        db = session
+
+        # 异步读取 issues 文件
+        if os.path.exists("./github_data/all_issues.json"):
+            async with aiofiles.open("./github_data/all_issues.json", "r", encoding="utf-8") as f:
+                contents = await f.read()
+                all_issues = set(json.loads(contents))
+        else:
+            all_issues = set()
+
+        # 异步读取仓库信息
+        if not os.path.exists("./github_data/all_repos.json"):
+            repos = await get_all_repos("datawhalechina")
+            await save_info_to_json(repos, "./github_data/all_repos.json")
+        else:
+            async with aiofiles.open("./github_data/all_repos.json", "r", encoding="utf-8") as f:
+                repos = json.loads(await f.read())
+
+        # 处理每个仓库的 issues 和 PRs
+        if repos != "Error: Unable to fetch repositories":
+            logging.info(f"lth repos {len(repos)}")
+            for index, repo in enumerate(repos[:]):
+
+                repo_name = repo["name"]
+                logging.info(f"{index} repo: {repo_name}")
+                total_issues = await get_all_issues_and_prs(username, repo_name)
+                logging.info("total_issues count: %d", len(total_issues))
+                for issue in total_issues[:]:
+                    url = issue["html_url"]
+                    all_issues.add(url)
+                    logging.info(f"{url}")
+                    issue_data = await db.execute(
+                        db.query(Apply).filter(Apply.url == url)
+                    )
+                    if issue_data:
+                        logging.info(f"{issue_data.url} 已存在")
+                    else:
+                        # 获取数据表Users的数量
+                        user_count = (await db.execute(db.query(Users).count())).scalar()
+                        phone_number = 15812340000 + user_count - 2
+                        logging.info(f"phone_number {phone_number}")
+                        # 如果数据表中没有该 issue，则插入新数据
+                        try:
+                            user_id = await db.execute(
+                                db.query(Users).filter_by(username=issue["user"]["login"])
+                            )
+                            if not user_id:
+                                new_user = Users(
+                                    username=issue["user"]["login"],
+                                    phone=f"{phone_number}",
+                                    github=issue["user"]["html_url"],
+                                    role="developer",
+                                    email=f'{issue["user"]["login"]}@example.com',
+                                    password=hashed_password,
+                                    desc=f"我为项目{repo_name}贡献了一个issue",
+                                    register_time=datetime.now(),
+                                    last_login_time=datetime.now(),
+                                )
+                                db.add(new_user)
+                                await db.commit()
+                                logging.info(f"Inserted new user: {new_user.username}")
+                                user_id = new_user.id
+                            else:
+                                user_id = user_id.id
+                            logging.info(f"user id {user_id}")
+                            repo_apply = Apply(
+                                user_id=user_id,
+                                repo=repo_name,
+                                role="developer",
+                                repo_owner_name=username,
+                                user_name=issue["user"]["login"],
+                                pid=issue["number"],
+                                title=issue["title"],
+                                url=url,
+                                content=issue["body"],
+                                state=issue["state"],
+                                record_time=datetime.strptime(
+                                    issue["created_at"][:-1], "%Y-%m-%dT%H:%M:%S"
+                                ),
+                            )
+                            db.add(repo_apply)
+                            await db.commit()
+                            logging.info(f"Inserted new url: {url}")
+                        except Exception as e:
+                            logging.error(f"error: {e}")
+                            pass
+
+                await asyncio.sleep(5)  # 异步睡眠，不阻塞
+        await save_list_to_json(all_issues, "./github_data/all_issues.json")
+
 
 
 if __name__ == "__main__":

@@ -64,12 +64,20 @@ import time
 # 初始化APScheduler
 scheduler = BackgroundScheduler()
 
-# 配置日志记录到文件
+import logging
+from datetime import datetime
+
+# 获取当前日期作为文件名的一部分
+log_filename = f"./data_logs/log_{datetime.now().strftime('%Y-%m-%d')}.txt"
+
 logging.basicConfig(
-    filename='log.txt',
+    filename=log_filename,  # 日志文件名包含日期
     level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    encoding='utf-8'  # 支持中文
 )
+# 设置 watchfiles 的日志级别为 WARNING，以屏蔽 INFO 日志
+logging.getLogger('watchfiles').setLevel(logging.WARNING)
 
 # 启动调度器
 scheduler.start()

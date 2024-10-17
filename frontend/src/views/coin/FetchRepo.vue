@@ -79,7 +79,7 @@ const startScheduledUpdate = async () => {
         updateCount++;
         await doFetch(); // 定时更新前台的数据
         console.log(`更新次数: ${updateCount}`);
-      }, 1*60*60*1000); // 
+      }, 1 * 60 * 60 * 1000); //
     } else {
       ElMessage.error("定时更新任务 数据拉取错误: " + response.message);
     }
@@ -96,7 +96,7 @@ setInterval(doFetch, 1 * 60 * 1000 + 15000);
 // 停止定时拉取任务
 const stopScheduledUpdate = async () => {
   try {
-    const response= await stopScheduledUpdateAPI();
+    const response = await stopScheduledUpdateAPI();
 
     // 清除定时器
     if (intervalId.value) {
@@ -106,7 +106,7 @@ const stopScheduledUpdate = async () => {
     ElMessage.success("定时更新任务已停止");
     const updateResults = response.message;
 
-   manualUpdateMessage.value = updateResults;
+    manualUpdateMessage.value = updateResults;
     isScheduledRunning.value = false;
   } catch (error) {
     const err = error as any;
@@ -146,6 +146,7 @@ const executeUpdate = async () => {
 </script>
 
 <template>
+  <!-- 添加指向这个issue的链接以及仓库的链接 以及滚动后再加载或者添加分页数据显示 -->
   <div class="flex flex-col items-center justify-center space-y-2 p-4">
     <div class="flex flex-row items-center justify-center space-x-4">
       <!-- 开始定时拉取按钮 -->
@@ -178,10 +179,7 @@ const executeUpdate = async () => {
         手动拉取
       </el-button>
 
-      <el-button
-        type="info"
-        @click="checkScheduledStatus"
-        class="w-48">
+      <el-button type="info" @click="checkScheduledStatus" class="w-48">
         检查定时任务状态
       </el-button>
     </div>
@@ -191,7 +189,6 @@ const executeUpdate = async () => {
       定时任务正在运行
     </p>
     <p v-else class="text-red-500 mt-2">定时任务未运行</p>
-
 
     <!-- 状态信息文本 -->
     <p v-if="manualUpdateMessage" class="text-gray-500 mt-2">
@@ -204,7 +201,15 @@ const executeUpdate = async () => {
       <el-table-column prop="user_name" label="申请人" />
       <el-table-column prop="repo" label="仓库" width="80" />
       <el-table-column prop="role" label="角色" />
-      <el-table-column prop="content" label="内容" />
+      <!-- 设置内容列的宽度 -->
+      <el-table-column prop="content" label="内容" width="800">
+        <template #default="scope">
+          <!-- 为内容添加固定宽度和高度，并启用滚动条 -->
+          <div style="width: 100%; max-height: 200px; overflow: auto">
+            {{ scope.row.content }}
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column prop="amount" label="数额" />
       <el-table-column prop="record_time" label="产生时间" />
       <el-table-column prop="apply_status" label="申请状态" />
