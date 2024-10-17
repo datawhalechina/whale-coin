@@ -92,6 +92,7 @@ def update_repo():
 
             repo_name = repo["name"]
             logging.info(f"{index} repo: {repo_name}")
+            print(f"{index} repo: {repo_name}")
             total_issues = get_all_issues_and_prs(username, repo_name,page=1)
             logging.info("total_issues count: %d", len(total_issues))
             for issue in total_issues[:]:
@@ -155,7 +156,7 @@ def update_repo():
                         pass
 
             db.commit()
-            time.sleep(5)
+            time.sleep(1)
     save_list_to_json(all_issues, "./github_data/all_issues.json")
     db.close()
 

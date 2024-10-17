@@ -101,14 +101,14 @@ def save_info_to_json(info_dict, filename):
 def get_all_pages(url,page=1):
     headers = {"Authorization": f"token {token}"}
     items = []
-    page = 0
-    while url and page < page:
+    index = 0
+    while url and index < page:
         response = requests.get(url, headers=headers)
         if response.status_code == 200:
             items.extend(response.json())
             # Check if there is a 'next' page
             url = response.links.get("next", {}).get("url")
-            page +=1
+            index +=1
         else:
             break
     return items
