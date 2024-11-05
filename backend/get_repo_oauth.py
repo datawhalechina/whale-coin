@@ -14,7 +14,19 @@ headers = {
     "Authorization": f"Bearer {token}",
     "Accept": "application/vnd.github+json",
 }
-
+import time
+import logging
+from datetime import datetime
+# log_filename = f"./data_logs/log_{datetime.now().strftime('%Y-%m-%d')}.txt"
+#
+# logging.basicConfig(
+#     filename=log_filename,  # 日志文件名包含日期
+#     level=logging.INFO,
+#     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+#     encoding='utf-8'  # 支持中文
+# )
+# # 设置 watchfiles 的日志级别为 WARNING，以屏蔽 INFO 日志
+# logging.getLogger('watchfiles').setLevel(logging.WARNING)
 
 # 获取用户的所有仓库
 def get_repositories():
@@ -97,20 +109,31 @@ def save_info_to_json(info_dict, filename):
         json.dump(info_dict, f, ensure_ascii=False, indent=4)
 
 
-# Helper function to get all pages of results
+
 def get_all_pages(url,page=1):
-    headers = {"Authorization": f"token {token}"}
+    headers = {"Authorization": f"token {token}",'User-Agent':'insomnia/10.1.0'}
     items = []
     index = 0
-    while url and index < page:
-        response = requests.get(url, headers=headers)
-        if response.status_code == 200:
-            items.extend(response.json())
-            # Check if there is a 'next' page
-            url = response.links.get("next", {}).get("url")
-            index +=1
-        else:
-            break
+    try:
+        while url and index < page:
+            start_time = time.time()
+            response = requests.get(url, headers=headers)
+            end_time = time.time()  # 结束计时
+            elapsed_time = end_time - start_time
+            logging.info(f"Query completed in {elapsed_time:.2f} seconds.")
+            if response.status_code == 200:
+                items.extend(response.json())
+                # Check if there is a 'next' page
+                url = response.links.get("next", {}).get("url")
+                index +=1
+            else:
+                break
+    except(Exception) as e:
+        logging.error(e)
+        logging.error(url)
+        # print("exceptions:", e)
+        # print(url)
+        # print(headers)
     return items
 
 
