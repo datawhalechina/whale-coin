@@ -16,7 +16,10 @@ DATABASE_URL = os.getenv(
 )
 
 # 创建引擎并连接到数据库
-engine = create_engine(DATABASE_URL)
+engine = create_engine(DATABASE_URL,
+        # 添加以下两项配置解决MySQL server has gone away问题
+        pool_pre_ping=True,  # 启用预检查
+        pool_recycle=3600)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 # 初始化密码加密上下文，bcrypt
