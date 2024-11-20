@@ -115,6 +115,12 @@ const routes: Array<RouteRecordRaw> = [
         name: "Order",
         component: () => import("../views/coin/FetchRepo.vue"),
       },
+      {
+        path: "/chat/Chat",
+        // 命名
+        name: "Chat",
+        component: () => import("../views/chat/Chat.vue"),
+      },
     ]
     
   }

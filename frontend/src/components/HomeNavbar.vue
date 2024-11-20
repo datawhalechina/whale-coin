@@ -16,6 +16,7 @@ const links = computed(() =>
     { label: "鲸币商品", href: "/item/item" },
     { label: "鲸币订单", href: "/item/order" },
     { label: "更新数据", href: "/coin/fetchrepo" , visible: userId < 4 },
+    { label: "chat", href: "/chat/Chat" , },
   ].filter((link) => link.visible !== false)
 ); // 过滤不可见的链接
 </script>
