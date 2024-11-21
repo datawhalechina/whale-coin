@@ -1,16 +1,14 @@
+import os
 import uvicorn
-import logging
 from fastapi import FastAPI
-from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi import BackgroundTasks
 from app.routers import users
 from app.routers import coin
 from app.routers import item
-from app.routers import update_data
 from app.config import settings
 from app.database import engine
-import datetime
+from datetime import datetime
+import logging
 app = FastAPI()
 
 origins = [
@@ -44,43 +42,14 @@ item.Base.metadata.create_all(bind=engine)
 
 
 from apscheduler.schedulers.background import BackgroundScheduler
-from typing import List, Dict
-import requests
-import threading
-import asyncio
-
 
 # 初始化APScheduler
 scheduler = BackgroundScheduler()
 scheduler.start()
 
 # 任务函数，用于定时抓取GitHub issues
-from update_repo import update_repo
-from update_repo import update_repo_test
-import time
+from update_repo import update_repo, update_repo_by_multithreaded
 
-
-
-# 初始化APScheduler
-scheduler = BackgroundScheduler()
-
-import logging
-from datetime import datetime
-
-# 获取当前日期作为文件名的一部分
-log_filename = f"./data_logs/log_{datetime.now().strftime('%Y-%m-%d')}.txt"
-
-logging.basicConfig(
-    filename=log_filename,  # 日志文件名包含日期
-    level=logging.INFO,
-    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
-    encoding='utf-8'  # 支持中文
-)
-# 设置 watchfiles 的日志级别为 WARNING，以屏蔽 INFO 日志
-logging.getLogger('watchfiles').setLevel(logging.WARNING)
-
-# 启动调度器
-scheduler.start()
 
 # 为定时任务分配一个唯一的ID
 job_id = "update_repo_job"
@@ -91,10 +60,9 @@ async def start_scheduled_update():
     启动定时任务，定期更新 GitHub 仓库的 issues。
     """
     job = scheduler.get_job(job_id)
-
     if job is None:
         new_job = scheduler.add_job(
-            update_repo, "interval", hours=12, minutes=0, seconds=0, id=job_id
+            update_repo_by_multithreaded, "interval", hours=1, minutes=0, seconds=0, id=job_id
         )
         next_run_time = new_job.next_run_time.strftime('%Y-%m-%d %H:%M:%S') if new_job.next_run_time else "Unknown"
         logging.info(f"Scheduled update started. Next run time: {next_run_time}.")
@@ -139,12 +107,13 @@ async def stop_scheduled_update():
 
 
 @app.get("/execute-update")
-async def execute_update():
+def execute_update():
     """
     手动执行数据更新任务，将数据写入数据库，并通知前端刷新。记录当前时间。
     """
     try:
-        update_repo()
+        # update_repo()
+        update_repo_by_multithreaded()
         current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         logging.info(f"Executed manual update successfully at {current_time}.")
         return {
@@ -158,4 +127,4 @@ async def execute_update():
             "message": f"An error occurred while executing the update: {str(e)}",
         }
 if __name__ == "__main__":
-    uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=True)
+    uvicorn.run("main:app", host=settings.HOST, port=settings.PORT, reload=False,workers=1)
