@@ -11,6 +11,8 @@ from app.routers import update_data
 from app.config import settings
 from app.database import engine
 import datetime
+from app.routers import chat
+
 app = FastAPI()
 
 origins = [
@@ -32,6 +34,9 @@ app.include_router(coin.coin)
 app.include_router(item.item)
 # app.include_router(update_data.router)
 
+
+# 注册路由
+app.include_router(chat.router, prefix="/api")
 
 @app.get("/")
 def read_root():

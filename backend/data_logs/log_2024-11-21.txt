@@ -1,0 +1,9 @@
+2024-11-21 18:23:39,686 - apscheduler.scheduler - INFO - Scheduler started
+2024-11-21 18:23:41,703 - apscheduler.scheduler - INFO - Scheduler started
+2024-11-21 18:23:41,805 - apscheduler.scheduler - INFO - Scheduler started
+2024-11-21 18:23:41,805 - apscheduler.scheduler - INFO - Scheduler started
+2024-11-21 18:23:59,268 - apscheduler.scheduler - INFO - Scheduler started
+2024-11-21 18:23:59,326 - apscheduler.scheduler - INFO - Scheduler started
+2024-11-21 18:23:59,326 - apscheduler.scheduler - INFO - Scheduler started
+2024-11-21 18:24:22,011 - httpx - INFO - HTTP Request: POST https://aigc789.top/v1/chat/completions "HTTP/1.1 200 OK"
+2024-11-21 18:24:32,887 - httpx - INFO - HTTP Request: POST https://aigc789.top/v1/chat/completions "HTTP/1.1 200 OK"

@@ -121,6 +121,12 @@ const routes: Array<RouteRecordRaw> = [
         name: "Chat",
         component: () => import("../views/chat/Chat.vue"),
       },
+      {
+        path: "/chat/ChatLlama  ",
+        // 命名
+        name: "ChatLlama",
+        component: () => import("../views/chat/ChatLlama.vue"),
+      },
     ]
     
   }

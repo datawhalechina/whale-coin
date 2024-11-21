@@ -12,7 +12,7 @@ async function handleSubmit() {
   answer.value = ''
   
   try {
-    const response = await fetch(`http://localhost:8008/api/stream_chat?param=${encodeURIComponent(question.value)}`)
+    const response = await fetch(`http://localhost:5000/stream_chat?param=${encodeURIComponent(question.value)}`)
     
     const reader = response.body.getReader()
     const decoder = new TextDecoder('utf-8')
